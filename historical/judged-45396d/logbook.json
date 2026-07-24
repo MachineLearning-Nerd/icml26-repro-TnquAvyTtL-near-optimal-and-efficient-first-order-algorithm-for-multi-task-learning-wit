@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "title": "Repro - TPGD Multi-Task Representation (arXiv 2605.00473)",
+  "emoji": "🎯",
+  "space_id": "DineshAI/TnquAvyTtL",
+  "paper": null,
+  "tags": [
+    "icml2026-repro",
+    "paper-TnquAvyTtL"
+  ],
+  "updated_at": "2026-07-23T19:18:02+00:00",
+  "root": {
+    "slug": "index",
+    "title": "Repro - TPGD Multi-Task Representation (arXiv 2605.00473)",
+    "file": "pages/index.md",
+    "children": [
+      {
+        "slug": "overview",
+        "title": "Overview",
+        "file": "pages/overview/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-3-error-rate",
+        "title": "Claim 3 — Error rate",
+        "file": "pages/claim-3-error-rate/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-4-o-1-iters",
+        "title": "Claim 4 — O(1) iters",
+        "file": "pages/claim-4-o-1-iters/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-6-transfer",
+        "title": "Claim 6 — Transfer",
+        "file": "pages/claim-6-transfer/page.md",
+        "children": []
+      },
+      {
+        "slug": "methods",
+        "title": "Methods",
+        "file": "pages/methods/page.md",
+        "children": []
+      },
+      {
+        "slug": "conclusion",
+        "title": "Conclusion",
+        "file": "pages/conclusion/page.md",
+        "children": []
+      }
+    ]
+  },
+  "agent_view_tokens": 1339,
+  "revision": "1784834282524261252"
+}

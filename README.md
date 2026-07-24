@@ -30,7 +30,7 @@ local CPU thread. Uncertain or multi-core work ran on Hugging Face
 - [Illustrated technical report](reports/tpgd-reproduction/report.md)
 - [Self-contained marimo tutorial](notebooks/tpgd_reproduction.py)
 - [Complete seed-level raw JSON](.openresearch/artifacts/cumulative/run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json)
-- [Current evaluator-visible claim index](candidate_space/pages/index.md)
+- [Current evaluator-visible claim index](pages/index.md)
 
 ## Experiment log
 

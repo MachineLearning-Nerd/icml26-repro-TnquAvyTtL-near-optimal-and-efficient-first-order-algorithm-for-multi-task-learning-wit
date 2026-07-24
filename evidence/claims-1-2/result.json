@@ -1,0 +1,27 @@
+{
+  "all_checks_passed": true,
+  "claims": ["C1", "C2"],
+  "evidence_git_sha": "9f277437f7f73e73d4d91f6a38ec917c34994841",
+  "openresearch_run_id": "be6790eb-dce8-4af4-acc7-390d9b92ceb1",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "configuration": {"d": 100, "k": 10, "T": 100, "N": 100, "K1": 4},
+  "phase_sequence": ["I", "I", "II", "II"],
+  "correction_gradient_frobenius": [
+    0.0,
+    0.0,
+    0.0016514366488344177,
+    0.0016514051419638425
+  ],
+  "empirical_gradient_relative_errors_B_W": [
+    8.507579128895898e-10,
+    4.852080075506547e-10
+  ],
+  "regularized_gradient_relative_errors_B_W": [
+    1.0128609748826006e-09,
+    7.601224974726092e-10
+  ],
+  "acceptance_threshold": 2e-07,
+  "verifier_runtime_seconds": 2.1378594170018914,
+  "enforced_numerical_threads": 1,
+  "verdict": "VERIFIED"
+}
