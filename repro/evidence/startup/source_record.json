@@ -1,0 +1,23 @@
+{
+  "paper_id": "2605.00473",
+  "retrieval_date": "2026-07-24",
+  "retrieval_user_agent": "OpenResearch-Reproduction/1.0 (+https://github.com/MachineLearning-Nerd)",
+  "primary_url": "https://ar5iv.labs.arxiv.org/html/2605.00473",
+  "primary_sha256": "ed1f5ebbab55beda1e583b3f896e180d14a29b5920ce2910986b222a12c60a77",
+  "alphaxiv_full_text_sha256": "0126f8797d032a4fa58f6b709a56aa598a8d6749e388d423a044c32d2209bfcc",
+  "anchors": {
+    "algorithm_1": "#alg1",
+    "assumption_3_2": "#S3.Thmtheorem2",
+    "assumption_3_3": "#S3.Thmtheorem3",
+    "theorem_5_1": "#S5.Thmtheorem1",
+    "corollary_5_3": "#S5.Thmtheorem3",
+    "theorem_5_4": "#S5.Thmtheorem4"
+  },
+  "source_notes": [
+    "Algorithm 1 assigns tau < K1/2 to Phase I and K1/2 <= tau < K1 to Phase II.",
+    "Section 4 prose says Phase I performs K1 iterations while naming the K1/2 iterate; this is recorded as a source inconsistency.",
+    "Theorem 5.1 and Corollary 5.3 are conditional, high-probability asymptotic bounds rather than finite-instance equalities.",
+    "Theorem 5.4 bounds transfer excess risk by a representation term plus sigma^2 k / K2 under Assumptions 3.2 and 3.3."
+  ]
+}
+
