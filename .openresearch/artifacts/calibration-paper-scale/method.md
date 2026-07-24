@@ -10,7 +10,7 @@ committed before the run. None is computed from the theorem rate. The
 independent checker recomputes taskwise parameter error with a Python loop; a
 frozen-initialization control must fail the improvement criterion.
 
-Step sizes are `0.02/sigma_1(M*)` in Phase I and `0.10/sigma_1(M*)` in Phase
-II. This is the conservative member of a small sibling calibration round.
+Step sizes are `0.05/sigma_1(M*)` in Phase I and `0.20/sigma_1(M*)` in Phase
+II. This is the aggressive member of a small sibling calibration round.
 The selected member will be determined by observed convergence, stability, and
 runtime—not by whichever result best matches the theorem formula.
