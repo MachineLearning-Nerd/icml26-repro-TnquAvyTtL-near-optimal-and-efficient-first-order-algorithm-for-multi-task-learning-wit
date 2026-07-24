@@ -1,0 +1,7 @@
+{
+  "run_id": "6661bf06-a416-4eeb-a5be-b446970ca8ad",
+  "name": "replace the orthogonal projection anchor by zero",
+  "identity_gap": 2.904129672281151,
+  "rejection_threshold": 0.0001,
+  "failed_as_intended": true
+}

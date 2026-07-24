@@ -1,0 +1,18 @@
+{
+  "run_id": "6661bf06-a416-4eeb-a5be-b446970ca8ad",
+  "ordinary_design_task_label_permutation": {
+    "failed_as_intended": true,
+    "final_parameter_error": 13.25347224740293,
+    "rejection_threshold": 0.010568511001203122
+  },
+  "exact_rip_deleted_direction": {
+    "failed_as_intended": true,
+    "resulting_delta": 1.0,
+    "acceptance_limit": 1e-12
+  },
+  "factor_k_mutated_prior_rate": {
+    "mutation": "replace dk^2/(NT) by dk/(NT)",
+    "failed_as_intended": true,
+    "mutated_quotient": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "run_id": "6661bf06-a416-4eeb-a5be-b446970ca8ad",
+  "experiment_id": "da76ac0d-68c6-4380-9352-52140119e234",
+  "git_sha": "e582fbea5cbce995dcd084eced463e142890721d",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "backend": "hf",
+  "flavor": "cpu-upgrade",
+  "image": "ghcr.io/astral-sh/uv:python3.12-bookworm-slim",
+  "estimated_cores": 8,
+  "visible_logical_cpus": 64,
+  "process_affinity_cpus": 64,
+  "numerical_thread_limit": 8,
+  "orx_wall_runtime": "3m53s",
+  "verifier_runtime_seconds": 204.45604540698696,
+  "raw_json_sha256": "c531785bbfcf8103625e27de8863e36df5221cd5970f5eb2ec174adc3def85c5",
+  "python": "3.12.12",
+  "numpy": "2.2.6",
+  "environment_inputs": [".python-version", "pyproject.toml", "uv.lock"]
+}

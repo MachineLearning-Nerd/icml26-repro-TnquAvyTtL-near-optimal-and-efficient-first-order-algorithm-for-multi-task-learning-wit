@@ -1,0 +1,13 @@
+{
+  "run_id": "6661bf06-a416-4eeb-a5be-b446970ca8ad",
+  "factorial_gradient_checker_max_absolute_difference": 1.3010426069826053e-18,
+  "exact_rip_explicit_gradient_checker_max_absolute_difference": 1.6653345369377348e-16,
+  "rate_comparison_source_fact_set_sha256": "8f2da2b626ef4c3da577b602af0f9ef6e18f2dd8e025cb89692cc764efae6603",
+  "rate_comparison_checker_passed": true,
+  "rate_comparison_quotients": {
+    "tripuraneni_2021": {"k": 1},
+    "thekumparampil_2021": {"k": 1}
+  },
+  "overall_diagnostics_passed": true,
+  "scientific_verdict": "BLOCKED"
+}

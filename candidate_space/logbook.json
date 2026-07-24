@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "title": "Repro - TPGD Multi-Task Representation (arXiv 2605.00473)",
+  "emoji": "🎯",
+  "space_id": "DineshAI/TnquAvyTtL",
+  "paper": "arXiv:2605.00473",
+  "tags": [
+    "icml2026-repro",
+    "paper-TnquAvyTtL"
+  ],
+  "updated_at": "2026-07-24T15:00:00+00:00",
+  "root": {
+    "slug": "index",
+    "title": "Current claim-by-claim verification",
+    "file": "pages/index.md",
+    "children": [
+      {
+        "slug": "claims-1-2-current",
+        "title": "Claims 1–2 — VERIFIED",
+        "file": "pages/claims-1-2.md",
+        "children": []
+      },
+      {
+        "slug": "claims-3-5-current",
+        "title": "Claims 3–5 — BLOCKED",
+        "file": "pages/claims-3-5.md",
+        "children": []
+      },
+      {
+        "slug": "claim-6-current",
+        "title": "Claim 6 — BLOCKED",
+        "file": "pages/claim-6.md",
+        "children": []
+      },
+      {
+        "slug": "historical-rejected-baseline",
+        "title": "Historical rejected baseline",
+        "file": "historical/judged-45396d/pages/index.md",
+        "children": [
+          {
+            "slug": "historical-overview",
+            "title": "Historical rejected baseline — Overview",
+            "file": "historical/judged-45396d/pages/overview/page.md",
+            "children": []
+          },
+          {
+            "slug": "historical-claim-3",
+            "title": "Historical rejected baseline — Claim 3",
+            "file": "historical/judged-45396d/pages/claim-3-error-rate/page.md",
+            "children": []
+          },
+          {
+            "slug": "historical-claim-4",
+            "title": "Historical rejected baseline — Claim 4",
+            "file": "historical/judged-45396d/pages/claim-4-o-1-iters/page.md",
+            "children": []
+          },
+          {
+            "slug": "historical-claim-6",
+            "title": "Historical rejected baseline — Claim 6",
+            "file": "historical/judged-45396d/pages/claim-6-transfer/page.md",
+            "children": []
+          },
+          {
+            "slug": "historical-methods",
+            "title": "Historical rejected baseline — Methods",
+            "file": "historical/judged-45396d/pages/methods/page.md",
+            "children": []
+          },
+          {
+            "slug": "historical-conclusion",
+            "title": "Historical rejected baseline — Conclusion",
+            "file": "historical/judged-45396d/pages/conclusion/page.md",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "agent_view_tokens": 4096,
+  "revision": "candidate-prepublication"
+}
