@@ -1,0 +1,46 @@
+{
+  "audit_status": "PASS",
+  "candidate_file_count": 88,
+  "text_overlay_file_count": 73,
+  "old_file_count": 18,
+  "old_file_set_subset": true,
+  "historical_text_byte_identical": true,
+  "secret_findings": [],
+  "missing_links": [],
+  "opened_files": [
+    "README.md",
+    "pages/index.md",
+    "historical/judged-45396d/README.md",
+    "pages/claims-1-2.md",
+    "pages/claims-3-5.md",
+    "pages/claim-6.md",
+    "evidence/claims-1-2/faithful_tpgd.py",
+    "evidence/claims-1-2/verify_claim12.py",
+    "evidence/claims-1-2/result.json",
+    "evidence/claims-1-2/checker.json",
+    "evidence/claims-1-2/controls.json",
+    "repro/src/factorial_sweep.py",
+    "repro/src/exact_rip_sweep.py",
+    "repro/src/rate_comparison_audit.py",
+    ".openresearch/artifacts/cumulative/run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json",
+    ".openresearch/artifacts/claims-3-5/independent_checker_output.json",
+    ".openresearch/artifacts/claims-3-5/negative_control_output.json",
+    ".openresearch/artifacts/cumulative/run_metadata.json",
+    "repro/src/transfer_decomposition.py",
+    ".openresearch/artifacts/claim-6/independent_checker_output.json",
+    ".openresearch/artifacts/claim-6/negative_control_output.json",
+    ".openresearch/artifacts/claim-6/claim_contract.json"
+  ],
+  "claim_conclusions": {
+    "C1": "VERIFIED evidence located",
+    "C2": "VERIFIED evidence located",
+    "C3": "BLOCKED evidence and limitation located",
+    "C4": "BLOCKED evidence and limitation located",
+    "C5": "BLOCKED evidence and limitation located",
+    "C6": "BLOCKED evidence and limitation located"
+  },
+  "conclusions_not_verifiable_from_candidate": [
+    "The universal mathematical validity of Theorems 5.1, 5.4, and Corollary 5.3",
+    "Any live judge score for the unpublished candidate"
+  ]
+}

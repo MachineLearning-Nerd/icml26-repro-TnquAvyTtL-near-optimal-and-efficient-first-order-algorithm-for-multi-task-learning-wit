@@ -1,0 +1,24 @@
+{
+  "phase": "repeat-after-navigation-and-report-fixes",
+  "audit_status": "PASS",
+  "candidate_file_count": 88,
+  "text_overlay_file_count": 73,
+  "old_file_count": 18,
+  "old_file_set_subset": true,
+  "historical_text_byte_identical": true,
+  "secret_findings": [],
+  "missing_links": [],
+  "opened_file_count": 22,
+  "verdicts_found": {
+    "C1": "VERIFIED",
+    "C2": "VERIFIED",
+    "C3": "BLOCKED",
+    "C4": "BLOCKED",
+    "C5": "BLOCKED",
+    "C6": "BLOCKED"
+  },
+  "conclusions_not_verifiable_from_candidate": [
+    "The universal mathematical validity of Theorems 5.1, 5.4, and Corollary 5.3",
+    "Any live judge score for the unpublished candidate"
+  ]
+}
