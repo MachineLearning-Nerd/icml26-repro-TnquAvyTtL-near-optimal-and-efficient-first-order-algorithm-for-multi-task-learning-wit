@@ -160,3 +160,12 @@ def simulate_paper_model(
     signal = np.einsum("tnd,dk,kt->tn", X, B_star, W_star, optimize=True)
     y = signal + rng.normal(scale=sigma, size=(T, N))
     return X, y, B_star, W_star
+
+
+def subspace_error(estimate: FloatArray, truth: FloatArray) -> float:
+    """Normalized projector distance, invariant to factor scaling and rotation."""
+    q_est, _ = np.linalg.qr(estimate, mode="reduced")
+    q_truth, _ = np.linalg.qr(truth, mode="reduced")
+    rank = truth.shape[1]
+    difference = q_est @ q_est.T - q_truth @ q_truth.T
+    return float(np.linalg.norm(difference, ord="fro") / np.sqrt(2.0 * rank))

@@ -13,8 +13,10 @@ import platform
 import time
 from pathlib import Path
 
-# The local baseline is authorized for one CPU core only. Set numerical thread
-# limits before importing NumPy.
+# Descendants containing uncertain-runtime paper-scale experiments run only on
+# Hugging Face cpu-upgrade. Cap numerical libraries at the visible allocation
+# (and never above eight); the exact observed count is printed below.
+NUMERICAL_THREAD_CAP = min(8, os.cpu_count() or 1)
 for variable in (
     "OMP_NUM_THREADS",
     "OPENBLAS_NUM_THREADS",
@@ -22,7 +24,7 @@ for variable in (
     "VECLIB_MAXIMUM_THREADS",
     "NUMEXPR_NUM_THREADS",
 ):
-    os.environ[variable] = "1"
+    os.environ[variable] = str(NUMERICAL_THREAD_CAP)
 
 import numpy as np
 
@@ -35,6 +37,7 @@ from core import (
     tpgd,
 )
 from claim12_verifier import run_contract as run_claim12_contract
+from paper_scale_pilot import run_pilot
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -162,15 +165,34 @@ def cpu_metadata(runtime_seconds: float) -> dict[str, object]:
         affinity = len(os.sched_getaffinity(0))
     return {
         "runtime_seconds": runtime_seconds,
-        "estimated_cores": 1,
-        "selected_backend": "local",
-        "selected_flavor": None,
+        "estimated_cores": 8,
+        "selected_backend": "hf",
+        "selected_flavor": "cpu-upgrade",
         "host_logical_cpus": os.cpu_count(),
         "process_affinity_cpus": affinity,
-        "numerical_thread_limit": 1,
+        "numerical_thread_limit": NUMERICAL_THREAD_CAP,
         "python": platform.python_version(),
         "numpy": np.__version__,
-        "seed_set": [1, 2, 3, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 30],
+        "seed_set": [
+            1,
+            2,
+            3,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            20,
+            21,
+            22,
+            23,
+            24,
+            30,
+            1201,
+            1202,
+            3101,
+        ],
     }
 
 
@@ -180,6 +202,9 @@ def main() -> int:
     claim12 = run_claim12_contract()
     REPORT["current_verification"] = {"claims_1_2": claim12}
     results.append(bool(claim12["all_checks_passed"]))
+    pilot = run_pilot()
+    REPORT["calibration"] = {"paper_scale_tpgd": pilot}
+    results.append(bool(pilot["calibration_acceptance_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -191,6 +216,13 @@ def main() -> int:
     print(json.dumps(claim12, indent=2, sort_keys=True))
     print("CURRENT_CLAIM12_JSON_END")
     print(f"current_claim12_status={'PASS' if claim12['all_checks_passed'] else 'FAIL'}")
+    print("PAPER_SCALE_CALIBRATION_JSON_BEGIN")
+    print(json.dumps(pilot, indent=2, sort_keys=True))
+    print("PAPER_SCALE_CALIBRATION_JSON_END")
+    print(
+        "paper_scale_calibration_status="
+        f"{'PASS' if pilot['calibration_acceptance_passed'] else 'FAIL'}"
+    )
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1
 
