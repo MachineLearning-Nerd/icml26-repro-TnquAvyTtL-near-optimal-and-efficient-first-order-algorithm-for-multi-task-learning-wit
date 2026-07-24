@@ -1,0 +1,17 @@
+{
+  "evidence_git_sha": "9f277437f7f73e73d4d91f6a38ec917c34994841",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "openresearch_run_id": "be6790eb-dce8-4af4-acc7-390d9b92ceb1",
+  "backend": "local",
+  "selected_cpu_upgrade_flavor": null,
+  "pre_run_estimated_cores": 1,
+  "actual_host_logical_cpus": 8,
+  "actual_process_affinity_cpus": null,
+  "enforced_numerical_threads": 1,
+  "verifier_runtime_seconds": 2.1378594170018914,
+  "job_wall_seconds_including_clone_and_environment": 10,
+  "python": "3.12.11",
+  "numpy": "2.2.6",
+  "deterministic_seeds_for_current_contract": [1201, 1202],
+  "environment_inputs": [".python-version", "pyproject.toml", "uv.lock"]
+}

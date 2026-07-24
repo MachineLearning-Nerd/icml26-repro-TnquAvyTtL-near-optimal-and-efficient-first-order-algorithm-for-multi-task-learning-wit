@@ -1,0 +1,22 @@
+{
+  "controls": [
+    {
+      "name": "factor-two full correction",
+      "mutation": "Replace the half correction implied by Equation (5) with the full correction in the older commented source block.",
+      "relative_errors_B_W": [
+        0.0205743702585174,
+        0.017454525608225323
+      ],
+      "rejection_threshold": 0.001,
+      "failed_as_intended": true
+    },
+    {
+      "name": "off-by-one phase switch",
+      "mutation": "Switch to regularization at iteration 1 instead of K1/2=2.",
+      "mutated_phase_sequence": ["I", "II", "II", "II"],
+      "required_phase_sequence": ["I", "I", "II", "II"],
+      "failed_as_intended": true
+    }
+  ],
+  "all_controls_failed_as_intended": true
+}

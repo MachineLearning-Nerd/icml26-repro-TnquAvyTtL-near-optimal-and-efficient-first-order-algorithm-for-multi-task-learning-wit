@@ -1,0 +1,13 @@
+{
+  "method": "entrywise central finite differences, epsilon=1e-6",
+  "empirical_relative_errors_B_W": [
+    8.507579128895898e-10,
+    4.852080075506547e-10
+  ],
+  "regularized_relative_errors_B_W": [
+    1.0128609748826006e-09,
+    7.601224974726092e-10
+  ],
+  "acceptance_threshold": 2e-07,
+  "passed": true
+}

@@ -1,0 +1,47 @@
+{
+  "all_checks_passed": true,
+  "claims": ["C1", "C2"],
+  "contract_version": 1,
+  "gradient_audit": {
+    "acceptance_threshold": 2e-07,
+    "empirical_relative_errors_B_W": [
+      8.507579128895898e-10,
+      4.852080075506547e-10
+    ],
+    "finite_difference_epsilon": 1e-06,
+    "negative_control_relative_errors_B_W": [
+      0.0205743702585174,
+      0.017454525608225323
+    ],
+    "regularized_relative_errors_B_W": [
+      1.0128609748826006e-09,
+      7.601224974726092e-10
+    ]
+  },
+  "phase_audit": {
+    "configuration": {
+      "K1": 4,
+      "N": 100,
+      "T": 100,
+      "d": 100,
+      "k": 10,
+      "sigma": 0.1
+    },
+    "correction_gradient_frobenius": [
+      0.0,
+      0.0,
+      0.0016514366488344177,
+      0.0016514051419638425
+    ],
+    "empirical_loss": [
+      517.8804990145676,
+      517.8802666173016,
+      517.8800342648542,
+      517.8798019565079
+    ],
+    "phase_sequence": ["I", "I", "II", "II"],
+    "regularized_flags": [false, false, true, true]
+  },
+  "scope": "structural algorithm identity at a paper-scale dimensional configuration",
+  "verdict": "VERIFIED"
+}
