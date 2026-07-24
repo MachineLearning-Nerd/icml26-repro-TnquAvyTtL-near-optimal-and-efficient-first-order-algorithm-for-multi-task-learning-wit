@@ -41,6 +41,7 @@ from paper_scale_pilot import run_pilot
 from factorial_sweep import run_factorial_sweep
 from exact_rip_sweep import run_exact_rip_sweep
 from transfer_decomposition import run_transfer_decomposition
+from rate_comparison_audit import run_rate_comparison_audit
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -217,6 +218,9 @@ def main() -> int:
     transfer = run_transfer_decomposition()
     REPORT["current_research"]["transfer_decomposition"] = transfer
     results.append(bool(transfer["diagnostics_passed"]))
+    rate_comparison = run_rate_comparison_audit()
+    REPORT["current_research"]["rate_comparison"] = rate_comparison
+    results.append(bool(rate_comparison["independent_checker_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -247,6 +251,13 @@ def main() -> int:
     print(json.dumps(transfer, indent=2, sort_keys=True))
     print("TRANSFER_DECOMPOSITION_JSON_END")
     print(f"transfer_diagnostics_status={'PASS' if transfer['diagnostics_passed'] else 'FAIL'}")
+    print("RATE_COMPARISON_AUDIT_JSON_BEGIN")
+    print(json.dumps(rate_comparison, indent=2, sort_keys=True))
+    print("RATE_COMPARISON_AUDIT_JSON_END")
+    print(
+        "rate_comparison_audit_status="
+        f"{'PASS' if rate_comparison['independent_checker_passed'] else 'FAIL'}"
+    )
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1
 

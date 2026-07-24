@@ -1,0 +1,12 @@
+{
+  "claim": "C3 comparison subclaim",
+  "paper_statement": "The dk/(NT) population-error rate improves over the cited dk^2/(NT) likelihood-based rate by a factor k, up to logarithmic factors.",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "inputs": {
+    "proposed_rate": "d*k/(N*T)",
+    "tripuraneni_rate": "d*r^2/n1 with r=k and n1=N*T",
+    "thekumparampil_prediction_term": "d*r^2/(m*t) with r=k, m=N, and t=T"
+  },
+  "acceptance": "After substitution, prior/proposed must simplify exactly to k for each primary source; the mutated dk/(NT) control must not simplify to k.",
+  "overall_claim_rule": "The algebraic subclaim may pass, but Claim 3 remains BLOCKED without proof-level verification or an assumption-satisfying falsification of Theorem 5.1/Corollary 5.3."
+}
