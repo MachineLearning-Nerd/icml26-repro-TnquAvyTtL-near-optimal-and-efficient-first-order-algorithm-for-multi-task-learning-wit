@@ -1,0 +1,15 @@
+{
+  "claims": ["C3", "C4", "C5"],
+  "route": "exact-RIP sufficient-statistic-equivalent TPGD",
+  "design_certificate": "X=sqrt(N)[P;0] with signed permutation P, therefore X^T X/N=I and delta=0",
+  "truth_certificate": "W*=sqrt(T/k)Q^T with Q^TQ=I, therefore all nonzero singular values of B*W* equal sqrt(T/k) and kappa=1",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "non_circularity": "Factor values, noise levels, sample grid, horizon, and operational error target were committed before outcomes and not selected from the theorem expression.",
+  "operational_threshold": {
+    "value": 0.1,
+    "success_rule": "at least four of five seeds",
+    "sample_grid": [100, 150, 200, 300, 400, 600],
+    "noise_standard_deviations": [0.5, 1.0, 1.5]
+  },
+  "verdict_rule": "The route remains BLOCKED unless all theorem hyperparameter premises become machine-checkable and the universal/high-probability statement receives proof-level support or a valid counterexample."
+}

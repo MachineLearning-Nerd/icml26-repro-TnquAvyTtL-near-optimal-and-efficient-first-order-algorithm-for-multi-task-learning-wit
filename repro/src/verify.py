@@ -39,6 +39,7 @@ from core import (
 from claim12_verifier import run_contract as run_claim12_contract
 from paper_scale_pilot import run_pilot
 from factorial_sweep import run_factorial_sweep
+from exact_rip_sweep import run_exact_rip_sweep
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -209,6 +210,9 @@ def main() -> int:
     factorial = run_factorial_sweep()
     REPORT["current_research"] = {"factorial_scaling": factorial}
     results.append(bool(factorial["diagnostics_passed"]))
+    exact_rip = run_exact_rip_sweep()
+    REPORT["current_research"]["exact_rip"] = exact_rip
+    results.append(bool(exact_rip["diagnostics_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -231,6 +235,10 @@ def main() -> int:
     print(json.dumps(factorial, indent=2, sort_keys=True))
     print("FACTORIAL_SCALING_JSON_END")
     print(f"factorial_diagnostics_status={'PASS' if factorial['diagnostics_passed'] else 'FAIL'}")
+    print("EXACT_RIP_SWEEP_JSON_BEGIN")
+    print(json.dumps(exact_rip, indent=2, sort_keys=True))
+    print("EXACT_RIP_SWEEP_JSON_END")
+    print(f"exact_rip_diagnostics_status={'PASS' if exact_rip['diagnostics_passed'] else 'FAIL'}")
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1
 
