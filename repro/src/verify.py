@@ -34,6 +34,7 @@ from core import (
     subspace_error,
     tpgd,
 )
+from claim12_verifier import run_contract as run_claim12_contract
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -176,6 +177,9 @@ def cpu_metadata(runtime_seconds: float) -> dict[str, object]:
 def main() -> int:
     started = time.perf_counter()
     results = [claim_c1(), claim_c2(), claim_c3(), claim_c4(), claim_c5(), claim_c6()]
+    claim12 = run_claim12_contract()
+    REPORT["current_verification"] = {"claims_1_2": claim12}
+    results.append(bool(claim12["all_checks_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -183,10 +187,13 @@ def main() -> int:
     print("HISTORICAL_BASELINE_JSON_BEGIN")
     print(json.dumps(REPORT, indent=2, sort_keys=True))
     print("HISTORICAL_BASELINE_JSON_END")
+    print("CURRENT_CLAIM12_JSON_BEGIN")
+    print(json.dumps(claim12, indent=2, sort_keys=True))
+    print("CURRENT_CLAIM12_JSON_END")
+    print(f"current_claim12_status={'PASS' if claim12['all_checks_passed'] else 'FAIL'}")
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

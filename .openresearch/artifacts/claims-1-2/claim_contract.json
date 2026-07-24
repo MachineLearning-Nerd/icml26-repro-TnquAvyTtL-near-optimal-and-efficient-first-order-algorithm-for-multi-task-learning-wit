@@ -1,0 +1,44 @@
+{
+  "claims": [
+    {
+      "id": "C1",
+      "source_anchor": "Algorithm 1 (#alg1)",
+      "statement": "TPGD is a two-phase first-order gradient-descent method that jointly updates B and W.",
+      "quantifiers": {
+        "iteration_range": "tau = 0,...,K1-1",
+        "phase_I": "0 <= tau < K1/2",
+        "phase_II": "K1/2 <= tau < K1"
+      },
+      "machine_acceptance": [
+        "The executable uses only analytic first derivatives to update both B and W.",
+        "For even K1, exactly K1/2 records are Phase I and exactly K1/2 are Phase II.",
+        "The contract is exercised at d=100,k=10,T=100,N=100, a dimensional configuration displayed in Figure 1(a)."
+      ]
+    },
+    {
+      "id": "C2",
+      "source_anchors": [
+        "Algorithm 1 (#alg1)",
+        "Equation (1) (#S3.E1)",
+        "Equation (5) (#S4.E5)"
+      ],
+      "statement": "Phase I follows the unregularized empirical loss and Phase II follows that loss plus ||B^T B-WW^T||_F^2/8.",
+      "machine_acceptance": [
+        "Central finite differences agree with the analytic Equation (1) gradients to relative error below 2e-7.",
+        "Central finite differences agree with the analytic Equation (5) gradients to relative error below 2e-7.",
+        "Correction gradients are identically absent in Phase I and nonzero in Phase II.",
+        "A full-correction factor-two negative control and an off-by-one phase negative control are both rejected."
+      ]
+    }
+  ],
+  "paper": {
+    "arxiv_id": "2605.00473",
+    "retrieved_utc_date": "2026-07-24",
+    "html_url": "https://ar5iv.labs.arxiv.org/html/2605.00473",
+    "html_sha256": "ed1f5ebbab55beda1e583b3f896e180d14a29b5920ce2910986b222a12c60a77",
+    "source_tar_sha256": "1f9b28d527bc30de0dd327a8ad86466e1ffce415b04a6a78158ed2ca02c9556f"
+  },
+  "verifier": "repro/src/claim12_verifier.py",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "failure_semantics": "The fixed command exits nonzero if any accepted current check fails or if a negative control is not rejected."
+}
