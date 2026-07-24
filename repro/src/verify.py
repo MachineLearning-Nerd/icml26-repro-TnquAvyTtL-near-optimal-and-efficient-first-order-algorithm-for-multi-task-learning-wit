@@ -38,6 +38,7 @@ from core import (
 )
 from claim12_verifier import run_contract as run_claim12_contract
 from paper_scale_pilot import run_pilot
+from factorial_sweep import run_factorial_sweep
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -205,6 +206,9 @@ def main() -> int:
     pilot = run_pilot()
     REPORT["calibration"] = {"paper_scale_tpgd": pilot}
     results.append(bool(pilot["calibration_acceptance_passed"]))
+    factorial = run_factorial_sweep()
+    REPORT["current_research"] = {"factorial_scaling": factorial}
+    results.append(bool(factorial["diagnostics_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -223,6 +227,10 @@ def main() -> int:
         "paper_scale_calibration_status="
         f"{'PASS' if pilot['calibration_acceptance_passed'] else 'FAIL'}"
     )
+    print("FACTORIAL_SCALING_JSON_BEGIN")
+    print(json.dumps(factorial, indent=2, sort_keys=True))
+    print("FACTORIAL_SCALING_JSON_END")
+    print(f"factorial_diagnostics_status={'PASS' if factorial['diagnostics_passed'] else 'FAIL'}")
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1
 

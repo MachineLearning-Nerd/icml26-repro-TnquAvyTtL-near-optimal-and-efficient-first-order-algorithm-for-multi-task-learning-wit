@@ -1,0 +1,24 @@
+{
+  "claims": ["C3", "C4", "C5"],
+  "route": "faithful finite factorial corroboration",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "algorithm": "TPGD Algorithm 1 using displayed Equation (5)",
+  "dimensions_varied_independently": {
+    "d": [50, 75, 100],
+    "k": [5, 10, 15],
+    "T": [50, 75, 100],
+    "N": [100, 150, 200, 300, 400]
+  },
+  "seeds": [4101, 4102, 4103, 4104, 4105],
+  "horizon": 650,
+  "relative_first_hit_target": "1% of initialization error",
+  "non_circularity": "Dimensions, horizon, checkpoints, and target were committed before outcomes and were not selected from dk/(NT) or the sample expression.",
+  "required_outputs": [
+    "mean, standard error, and bootstrap slope interval for each factor",
+    "first-hit distribution on a 25-iteration grid",
+    "exact realized RIP delta audit",
+    "independent task-loop error recomputation",
+    "permuted-task-label negative control"
+  ],
+  "verdict_rule": "This finite route is SCOPED_CORROBORATION only. It cannot by itself change a universal theorem claim from BLOCKED to VERIFIED."
+}
