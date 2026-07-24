@@ -1,0 +1,16 @@
+{
+  "claim": "C6",
+  "source_anchor": "Theorem 5.4 (#S5.Thmtheorem4) and Algorithm 2",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "exact_decomposition": "For H=I and full-rank Bhat, 0.5||Bhat w-theta||^2 equals 0.5||(I-P_Bhat)theta||^2 plus 0.5||Bhat(w-w_opt)||^2.",
+  "upstream_assumptions": "Exact delta=0 RIP design and balanced kappa=1 truth.",
+  "target_assumption": "x~N(0,I), so H=I and E[xx^T M xx^T]=2M+tr(M)I <=3tr(M)I for PSD M.",
+  "algorithm": "Algorithm 2 last-iterate online SGD with its printed geometric halving rule.",
+  "sweeps": {
+    "upstream_N": [100, 200, 400, 800],
+    "target_K2": [1000, 2000, 4000, 8000],
+    "seeds": [8101, 8102, 8103, 8104, 8105, 8106, 8107, 8108]
+  },
+  "negative_control": "Replace the orthogonal projection anchor by zero; the decomposition identity must fail.",
+  "verdict_rule": "BLOCKED unless the unspecified Algorithm 2 input h and universal theorem quantifiers are independently resolved."
+}
