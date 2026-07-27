@@ -1,0 +1,122 @@
+{
+  "claim_3": {
+    "mutation": "replace prior d k^2/(N T) by d k/(N T)",
+    "rejected": true
+  },
+  "claim_4_symbolic": {
+    "mutated_total_K1_by_d": [
+      23570,
+      94306,
+      377248,
+      1509014
+    ],
+    "mutation": "replace eta2=c2/sigma1 by eta2=c2/d",
+    "rejected": true
+  },
+  "claim_4_tpgd": {
+    "mutation": "replace constant normalized step sizes by step sizes proportional to 1/d",
+    "rejected_as_dimension_dependent": true,
+    "rows": [
+      {
+        "T": 32,
+        "condition_number": 1.0000000000000004,
+        "d": 32,
+        "dimension_dependent_step_control": true,
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "exact_rip_delta": 0.0,
+        "final_relative_squared_error": 3.6095800628090164e-32,
+        "first_hit_iteration": 87,
+        "initial_relative_squared_error": 1.0000356470038665,
+        "k": 4,
+        "seed": 9201,
+        "sigma_1_M_star": 1.0,
+        "sigma_k_M_star": 0.9999999999999996
+      },
+      {
+        "T": 32,
+        "condition_number": 1.0,
+        "d": 64,
+        "dimension_dependent_step_control": true,
+        "eta1": 0.04999999999999999,
+        "eta2": 0.04999999999999999,
+        "exact_rip_delta": 0.0,
+        "final_relative_squared_error": 3.1823278531131786e-30,
+        "first_hit_iteration": 175,
+        "initial_relative_squared_error": 0.9999835143225337,
+        "k": 4,
+        "seed": 9201,
+        "sigma_1_M_star": 1.0000000000000002,
+        "sigma_k_M_star": 1.0000000000000002
+      },
+      {
+        "T": 32,
+        "condition_number": 1.0000000000000004,
+        "d": 128,
+        "dimension_dependent_step_control": true,
+        "eta1": 0.025,
+        "eta2": 0.025,
+        "exact_rip_delta": 0.0,
+        "final_relative_squared_error": 8.709136171201002e-15,
+        "first_hit_iteration": 381,
+        "initial_relative_squared_error": 0.9999994220919655,
+        "k": 4,
+        "seed": 9201,
+        "sigma_1_M_star": 1.0,
+        "sigma_k_M_star": 0.9999999999999996
+      },
+      {
+        "T": 32,
+        "condition_number": 1.0000000000000009,
+        "d": 256,
+        "dimension_dependent_step_control": true,
+        "eta1": 0.012499999999999995,
+        "eta2": 0.012499999999999995,
+        "exact_rip_delta": 0.0,
+        "final_relative_squared_error": 1.7932662679874667e-06,
+        "first_hit_iteration": 701,
+        "initial_relative_squared_error": 0.9999864855087829,
+        "k": 4,
+        "seed": 9201,
+        "sigma_1_M_star": 1.0000000000000004,
+        "sigma_k_M_star": 0.9999999999999997
+      },
+      {
+        "T": 32,
+        "condition_number": 1.0000000000000007,
+        "d": 512,
+        "dimension_dependent_step_control": true,
+        "eta1": 0.006249999999999999,
+        "eta2": 0.006249999999999999,
+        "exact_rip_delta": 0.0,
+        "final_relative_squared_error": 0.7460821093179683,
+        "first_hit_iteration": null,
+        "initial_relative_squared_error": 0.999997030668281,
+        "k": 4,
+        "seed": 9201,
+        "sigma_1_M_star": 1.0000000000000002,
+        "sigma_k_M_star": 0.9999999999999997
+      },
+      {
+        "T": 32,
+        "condition_number": 1.0000000000000004,
+        "d": 1024,
+        "dimension_dependent_step_control": true,
+        "eta1": 0.0031249999999999993,
+        "eta2": 0.0031249999999999993,
+        "exact_rip_delta": 0.0,
+        "final_relative_squared_error": 0.9993254716466662,
+        "first_hit_iteration": null,
+        "initial_relative_squared_error": 1.000001644519575,
+        "k": 4,
+        "seed": 9201,
+        "sigma_1_M_star": 1.0000000000000002,
+        "sigma_k_M_star": 0.9999999999999999
+      }
+    ]
+  },
+  "claim_5": {
+    "mutation": "replace kappa^4 by kappa^2",
+    "rejected": true
+  }
+}

@@ -27,6 +27,8 @@ orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Theorem 5.4 
 orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Primary-source rate comparison and factor-k audit" --parent 4e996646-f129-4c6e-bfab-7202db8163c6
 orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Materialized cumulative claim evidence" --parent da76ac0d-68c6-4380-9352-52140119e234
 orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Publication report and tutorial surface" --parent 04205e45-d625-46c2-a43f-20f37fdbf40a
+orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Source-certified theorem identities and dimension sweep" --parent 200405ed-01f3-4edc-b9f4-ac7a31df359f
+orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Evaluator-visible source-certified release candidate" --parent 4ad2637e-302e-471d-8ca4-b348dbe49c8c
 ```
 
 ## Compute launches
@@ -55,6 +57,22 @@ This exact command was issued for experiment IDs
 `04205e45-d625-46c2-a43f-20f37fdbf40a`, and
 `200405ed-01f3-4edc-b9f4-ac7a31df359f`.
 
+The source-certificate experiment was submitted once without a compatible
+image, then twice with the pinned Astral `uv` image:
+
+```text
+orx exp run 4ad2637e-302e-471d-8ca4-b348dbe49c8c --backend hf --flavor cpu-upgrade --timeout 1h
+orx exp run 4ad2637e-302e-471d-8ca4-b348dbe49c8c --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
+```
+
+The first image-backed run exposed an independent-checker grid-cardinality
+typo; the corrected cumulative run passed without changing experiment
+thresholds or configuration. The release candidate uses:
+
+```text
+orx exp run 24a3c4a3-1d1b-41f6-94b1-2d1a75511b3f --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
+```
+
 Every run was monitored with:
 
 ```text
@@ -70,6 +88,10 @@ uv run marimo check notebooks/tpgd_reproduction.py
 uv run marimo export html notebooks/tpgd_reproduction.py -o /tmp/tpgd_reproduction_notebook.html
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 uv run python scripts/plot_report.py
 uv run python scripts/audit_candidate.py --old-dir /tmp/tpgd_repro_audit/judged_api_45396d
+python scripts/materialize_source_certificates.py <accepted-orx-log
+python scripts/protect_judged_revision.py <downloaded-894e-directory> repro/evidence/startup/judged_space_894e_manifest.sha256
+python scripts/build_upload_manifest.py
+python scripts/audit_candidate.py --old-dir <downloaded-894e-directory>
 git diff --check
 ```
 

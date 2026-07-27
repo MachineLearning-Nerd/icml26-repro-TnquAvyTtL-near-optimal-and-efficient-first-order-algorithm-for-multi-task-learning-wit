@@ -1,0 +1,16 @@
+{
+  "run_id": "6661bf06-a416-4eeb-a5be-b446970ca8ad",
+  "maximum_exact_decomposition_error": 1.960237527853792e-16,
+  "decomposition_limit": 1e-12,
+  "representation_slope": -1.0218282578712288,
+  "representation_bootstrap_95_interval": [-1.0996394415349104, -0.9419229554549114],
+  "representation_interval_contains_minus_one": true,
+  "optimization_slope": -1.091258734568796,
+  "optimization_bootstrap_95_interval": [-1.3059836452773936, -0.8871460487043995],
+  "optimization_interval_contains_minus_one": true,
+  "negative_control_identity_gap": 2.904129672281151,
+  "negative_control_rejection_threshold": 0.0001,
+  "negative_control_failed_as_intended": true,
+  "all_independent_checks_passed": true,
+  "scientific_verdict": "VERIFIED"
+}

@@ -1,0 +1,18 @@
+{
+  "claim": "C6",
+  "verdict": "VERIFIED",
+  "source_anchor": "Theorem 5.4 (#S5.Thmtheorem4) and Algorithm 2",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "exact_contract": "Under the registered Gaussian target assumption, verify the exact decomposition of excess population risk into orthogonal representation approximation error and task-specific optimization error, then vary upstream N and target K2 separately.",
+  "assumptions": {
+    "upstream": "Exact delta=0 RIP design and balanced kappa=1 truth.",
+    "target": "x~N(0,I), hence H=I and E[xx^T M xx^T]=2M+tr(M)I <=3tr(M)I for PSD M."
+  },
+  "sweeps": {
+    "upstream_N": [100, 200, 400, 800],
+    "target_K2": [1000, 2000, 4000, 8000],
+    "seeds": [8101, 8102, 8103, 8104, 8105, 8106, 8107, 8108]
+  },
+  "pass_rule": "Maximum decomposition residual <=1e-12, both resource-slope confidence intervals contain -1, and the zero-projection negative control exceeds 1e-4.",
+  "implementation_convention": "Algorithm 2 pseudocode with h=0; the paper does not instantiate h."
+}

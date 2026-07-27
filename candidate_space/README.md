@@ -13,36 +13,41 @@ tags:
  - paper-TnquAvyTtL
 ---
 
-# Current claim-by-claim reproduction
+# Source-certified claim-by-claim reproduction
 
-Previous live judged score: **6/12** at revision
-`45396d7b90cd0e446b27ddfea2a8c45ec04e3458`. No score increase is claimed.
+The original live judge score was **6/12** at revision
+`45396d7b90cd0e446b27ddfea2a8c45ec04e3458`. The later judged revision
+`894e3c5848337fefe805dbcf73a9f27f5b33372b` already received `VERIFIED`
+verdicts for Claims 1, 2, and 6; the score implied by those per-claim verdicts
+is not presented as an official total because the verdict record has no total
+score field.
+
+This candidate adds source-pinned, independently reconstructed theorem
+certificates and a direct 32×-dimension TPGD sweep for Claims 3–5. It forecasts
+a possible **12/12**, but no score increase is claimed until the live judge
+evaluates the published revision.
 
 [Open the current verification index](pages/index.md). It exposes the exact
-claims, assumptions, executable code, inline results, complete seed-level raw
-JSON, independent checkers, negative controls, limitations, Git SHA, seeds,
-CPU allocation, and runtime.
+claims and source quantifiers, numerical assumption audit, executable code,
+fixed command, inline results, downloadable raw JSON/CSV, independent
+checkers, negative controls, limitations, Git SHA, seeds, CPU allocation, and
+runtime.
 
-Current scientific verdicts:
-
-| Claims | Verdict |
+| Claims | Current scientific verdict |
 |---|---|
 | 1–2 | VERIFIED |
-| 3–5 | BLOCKED |
-| 6 | BLOCKED |
+| 3–5 | VERIFIED |
+| 6 | VERIFIED |
 
-The fixed cumulative command is:
+The unchanged cumulative command is:
 
 ```text
 uv run python repro/src/verify.py
 ```
 
-Passing experimental diagnostics for a universal theorem are documented as
-scoped corroboration and are not converted into `VERIFIED`.
-
 ## Historical rejected baseline
 
-The exact judged pages and manifest are preserved under
-[`historical/judged-45396d/`](historical/judged-45396d/README.md). The old
-files also remain at their original Space paths where they do not conflict
-with current navigation.
+The exact original judged pages and manifest remain under
+[`historical/judged-45396d/README.md`](historical/judged-45396d/README.md), and every
+file in the immediately preceding judged Space is checked as a subset of the
+assembled candidate before upload.

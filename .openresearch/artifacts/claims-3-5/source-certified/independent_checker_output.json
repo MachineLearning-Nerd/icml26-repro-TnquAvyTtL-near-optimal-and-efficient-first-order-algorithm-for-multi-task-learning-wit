@@ -1,0 +1,13 @@
+{
+  "all_independent_checks_passed": true,
+  "claim_3_independent_check": true,
+  "claim_3_max_identity_error": 0.0,
+  "claim_4_independent_check": true,
+  "claim_4_spreads_by_kappa": {
+    "1.0": 0,
+    "2.0": 0
+  },
+  "claim_5_independent_check": true,
+  "claim_5_max_reconstruction_error": 0.0,
+  "source_anchors_passed": true
+}

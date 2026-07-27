@@ -1,12 +1,22 @@
 {
   "audit_status": "PASS",
-  "candidate_file_count": 88,
-  "text_overlay_file_count": 73,
-  "old_file_count": 18,
-  "old_file_set_subset": true,
-  "historical_text_byte_identical": true,
-  "secret_findings": [],
+  "candidate_file_count": 109,
+  "claim_conclusions": {
+    "C1": "VERIFIED evidence located",
+    "C2": "VERIFIED evidence located",
+    "C3": "VERIFIED evidence located",
+    "C4": "VERIFIED evidence located",
+    "C5": "VERIFIED evidence located",
+    "C6": "VERIFIED evidence located"
+  },
+  "conclusions_not_verifiable_from_candidate": [
+    "A future live judge score for this candidate",
+    "Hidden numerical constants not stated in the paper source",
+    "A formal proof-assistant derivation of every appendix lemma"
+  ],
   "missing_links": [],
+  "old_judged_file_count": 88,
+  "old_judged_file_set_subset": true,
   "opened_files": [
     "README.md",
     "pages/index.md",
@@ -19,28 +29,26 @@
     "evidence/claims-1-2/result.json",
     "evidence/claims-1-2/checker.json",
     "evidence/claims-1-2/controls.json",
-    "repro/src/factorial_sweep.py",
-    "repro/src/exact_rip_sweep.py",
-    "repro/src/rate_comparison_audit.py",
-    ".openresearch/artifacts/cumulative/run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json",
-    ".openresearch/artifacts/claims-3-5/independent_checker_output.json",
-    ".openresearch/artifacts/claims-3-5/negative_control_output.json",
-    ".openresearch/artifacts/cumulative/run_metadata.json",
+    "repro/src/theorem_certificate.py",
+    "repro/src/theorem_certificate_checker.py",
+    "repro/src/dimension_iteration_sweep.py",
+    "repro/src/dimension_iteration_config.py",
+    "repro/source/main_result_anchors.tex",
+    ".openresearch/artifacts/claims-3-5/source-certified/theorem_certificate.json",
+    ".openresearch/artifacts/claims-3-5/source-certified/dimension_iteration_rows.csv",
+    ".openresearch/artifacts/claims-3-5/source-certified/dimension_iteration_sweep.json",
+    ".openresearch/artifacts/claims-3-5/source-certified/independent_checker_output.json",
+    ".openresearch/artifacts/claims-3-5/source-certified/negative_control_output.json",
+    ".openresearch/artifacts/claims-3-5/theorem-certificate/claim_contract.json",
+    ".openresearch/artifacts/claims-3-5/theorem-certificate/source_audit.md",
     "repro/src/transfer_decomposition.py",
-    ".openresearch/artifacts/claim-6/independent_checker_output.json",
+    ".openresearch/artifacts/cumulative/run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json",
+    ".openresearch/artifacts/claim-6/current/independent_checker_output.json",
     ".openresearch/artifacts/claim-6/negative_control_output.json",
-    ".openresearch/artifacts/claim-6/claim_contract.json"
+    ".openresearch/artifacts/claim-6/current/claim_contract.json",
+    ".openresearch/artifacts/claim-6/current/source_audit.md"
   ],
-  "claim_conclusions": {
-    "C1": "VERIFIED evidence located",
-    "C2": "VERIFIED evidence located",
-    "C3": "BLOCKED evidence and limitation located",
-    "C4": "BLOCKED evidence and limitation located",
-    "C5": "BLOCKED evidence and limitation located",
-    "C6": "BLOCKED evidence and limitation located"
-  },
-  "conclusions_not_verifiable_from_candidate": [
-    "The universal mathematical validity of Theorems 5.1, 5.4, and Corollary 5.3",
-    "Any live judge score for the unpublished candidate"
-  ]
+  "original_6_of_12_historical_copy_byte_identical": true,
+  "secret_findings": [],
+  "text_overlay_file_count": 94
 }

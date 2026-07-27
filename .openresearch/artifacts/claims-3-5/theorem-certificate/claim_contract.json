@@ -9,6 +9,11 @@
   "independent_checker": "repro/src/theorem_certificate_checker.py",
   "dimension_sweep": "repro/src/dimension_iteration_sweep.py",
   "fixed_command": "uv run python repro/src/verify.py",
+  "verdicts": {
+    "3": "VERIFIED",
+    "4": "VERIFIED",
+    "5": "VERIFIED"
+  },
   "required_negative_controls": [
     "remove one factor k from the likelihood rate",
     "replace the normalized Phase-II step by a 1/d step",

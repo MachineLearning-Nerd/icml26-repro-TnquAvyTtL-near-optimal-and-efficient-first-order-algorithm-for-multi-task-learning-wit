@@ -1,4 +1,4 @@
-"""Render the four evidence figures used by the reproduction report."""
+"""Render the five evidence figures used by the reproduction report."""
 
 from __future__ import annotations
 
@@ -17,6 +17,11 @@ RAW = (
     ROOT
     / ".openresearch/artifacts/cumulative"
     / "run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json"
+)
+DIMENSION_RAW = (
+    ROOT
+    / ".openresearch/artifacts/claims-3-5/source-certified"
+    / "dimension_iteration_sweep.json"
 )
 OUT = ROOT / "reports/tpgd-reproduction/images"
 COLORS = {
@@ -155,6 +160,71 @@ def transfer_decomposition(data: dict) -> None:
     plt.close(fig)
 
 
+def dimension_iterations(data: dict) -> None:
+    dimensions = np.asarray(data["configuration"]["d_values"], dtype=float)
+    medians = np.asarray(
+        [data["median_first_hit_by_d"][str(int(d))] for d in dimensions],
+        dtype=float,
+    )
+    control_hits = [
+        row["first_hit_iteration"] for row in data["negative_control"]["rows"]
+    ]
+    control = np.asarray(
+        [
+            value if value is not None else data["configuration"]["K1"] + 25
+            for value in control_hits
+        ],
+        dtype=float,
+    )
+    fig, ax = plt.subplots(figsize=(8.4, 4.6))
+    ax.semilogx(
+        dimensions,
+        medians,
+        "o-",
+        base=2,
+        linewidth=2.4,
+        markersize=7,
+        color=COLORS["blue"],
+        label="TPGD, theorem-normalized steps",
+    )
+    ax.semilogx(
+        dimensions,
+        control,
+        "s--",
+        base=2,
+        linewidth=2,
+        markersize=6,
+        color=COLORS["red"],
+        label=r"negative control, steps $\propto1/d$",
+    )
+    for d, value in zip(dimensions, control_hits):
+        if value is None:
+            ax.annotate(
+                "no hit",
+                (d, data["configuration"]["K1"] + 25),
+                xytext=(0, 7),
+                textcoords="offset points",
+                ha="center",
+                color=COLORS["red"],
+            )
+    ax.axhline(
+        data["configuration"]["K1"],
+        color=COLORS["gray"],
+        linestyle=":",
+        linewidth=1.5,
+        label="800-iteration horizon",
+    )
+    ax.set_xticks(dimensions, [str(int(d)) for d in dimensions])
+    ax.set_xlabel("input dimension d (log₂ scale)")
+    ax.set_ylabel("first-hit iteration")
+    ax.set_title("TPGD iteration count stays stable across a 32× dimension sweep")
+    ax.grid(alpha=0.22)
+    ax.legend(frameon=False, loc="upper left")
+    fig.tight_layout()
+    fig.savefig(OUT / "dimension_iterations.png", dpi=180)
+    plt.close(fig)
+
+
 def main() -> None:
     _style()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -163,7 +233,8 @@ def main() -> None:
     tpgd_trajectory(data)
     sample_threshold(data)
     transfer_decomposition(data)
-    print(f"rendered_figures=4 output={OUT}")
+    dimension_iterations(json.loads(DIMENSION_RAW.read_text()))
+    print(f"rendered_figures=5 output={OUT}")
 
 
 if __name__ == "__main__":

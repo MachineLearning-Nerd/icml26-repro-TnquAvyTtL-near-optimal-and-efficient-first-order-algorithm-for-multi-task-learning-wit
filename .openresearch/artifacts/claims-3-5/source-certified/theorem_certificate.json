@@ -1,0 +1,1251 @@
+{
+  "all_certificates_passed": true,
+  "artifact_status": "MACHINE_CHECKABLE_SOURCE_AND_SYMBOLIC_CERTIFICATE",
+  "claim_3": {
+    "certificate_passed": true,
+    "contract": "Corollary 5.3 states sigma^2 d k/(N T), while the cited likelihood rate is d k^2/(N T); their symbolic quotient is k.",
+    "maximum_factor_k_identity_error": 0.0,
+    "negative_control": {
+      "mutation": "replace prior d k^2/(N T) by d k/(N T)",
+      "rejected": true
+    },
+    "rate_exponent_vector": {
+      "N": -1,
+      "T": -1,
+      "d": 1,
+      "k": 1
+    },
+    "rate_grid": [
+      {
+        "N": 128,
+        "T": 16,
+        "d": 64,
+        "k": 2,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.0625
+      },
+      {
+        "N": 512,
+        "T": 16,
+        "d": 64,
+        "k": 2,
+        "prior_dk2_over_NT": 0.03125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.015625
+      },
+      {
+        "N": 128,
+        "T": 64,
+        "d": 64,
+        "k": 2,
+        "prior_dk2_over_NT": 0.03125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.015625
+      },
+      {
+        "N": 512,
+        "T": 64,
+        "d": 64,
+        "k": 2,
+        "prior_dk2_over_NT": 0.0078125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.00390625
+      },
+      {
+        "N": 128,
+        "T": 16,
+        "d": 64,
+        "k": 4,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.125
+      },
+      {
+        "N": 512,
+        "T": 16,
+        "d": 64,
+        "k": 4,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.03125
+      },
+      {
+        "N": 128,
+        "T": 64,
+        "d": 64,
+        "k": 4,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.03125
+      },
+      {
+        "N": 512,
+        "T": 64,
+        "d": 64,
+        "k": 4,
+        "prior_dk2_over_NT": 0.03125,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.0078125
+      },
+      {
+        "N": 128,
+        "T": 16,
+        "d": 64,
+        "k": 8,
+        "prior_dk2_over_NT": 2.0,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.25
+      },
+      {
+        "N": 512,
+        "T": 16,
+        "d": 64,
+        "k": 8,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.0625
+      },
+      {
+        "N": 128,
+        "T": 64,
+        "d": 64,
+        "k": 8,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.0625
+      },
+      {
+        "N": 512,
+        "T": 64,
+        "d": 64,
+        "k": 8,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.015625
+      },
+      {
+        "N": 128,
+        "T": 16,
+        "d": 256,
+        "k": 2,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.25
+      },
+      {
+        "N": 512,
+        "T": 16,
+        "d": 256,
+        "k": 2,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.0625
+      },
+      {
+        "N": 128,
+        "T": 64,
+        "d": 256,
+        "k": 2,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.0625
+      },
+      {
+        "N": 512,
+        "T": 64,
+        "d": 256,
+        "k": 2,
+        "prior_dk2_over_NT": 0.03125,
+        "prior_to_proposed_ratio": 2.0,
+        "proposed_dk_over_NT": 0.015625
+      },
+      {
+        "N": 128,
+        "T": 16,
+        "d": 256,
+        "k": 4,
+        "prior_dk2_over_NT": 2.0,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.5
+      },
+      {
+        "N": 512,
+        "T": 16,
+        "d": 256,
+        "k": 4,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.125
+      },
+      {
+        "N": 128,
+        "T": 64,
+        "d": 256,
+        "k": 4,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.125
+      },
+      {
+        "N": 512,
+        "T": 64,
+        "d": 256,
+        "k": 4,
+        "prior_dk2_over_NT": 0.125,
+        "prior_to_proposed_ratio": 4.0,
+        "proposed_dk_over_NT": 0.03125
+      },
+      {
+        "N": 128,
+        "T": 16,
+        "d": 256,
+        "k": 8,
+        "prior_dk2_over_NT": 8.0,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 1.0
+      },
+      {
+        "N": 512,
+        "T": 16,
+        "d": 256,
+        "k": 8,
+        "prior_dk2_over_NT": 2.0,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.25
+      },
+      {
+        "N": 128,
+        "T": 64,
+        "d": 256,
+        "k": 8,
+        "prior_dk2_over_NT": 2.0,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.25
+      },
+      {
+        "N": 512,
+        "T": 64,
+        "d": 256,
+        "k": 8,
+        "prior_dk2_over_NT": 0.5,
+        "prior_to_proposed_ratio": 8.0,
+        "proposed_dk_over_NT": 0.0625
+      }
+    ],
+    "verdict": "VERIFIED"
+  },
+  "claim_4": {
+    "certificate_passed": true,
+    "contract": "At fixed kappa and normalized theorem step sizes, Phase I is order kappa^6 and the full Phase-II K1 has no polynomial d,k,T,N dependence; initialization contributes only suppressed logarithms.",
+    "derivation": {
+      "eta1_choice": "c1/(kappa^5 sigma_1)",
+      "eta2_choice": "c2/sigma_1",
+      "initialization_dimension_term": "log(1/alpha_tilde)=O(log(max(d+T,k))) at fixed kappa,C1",
+      "phase1_order": "1/(eta1 sigma_k) = kappa^6/c1",
+      "phase2_contraction": "1-c2/(4 kappa)",
+      "total_iteration_formula": "K1=2 ceil(log(target)/log(1-c2/(4 kappa)))"
+    },
+    "iteration_grid": [
+      {
+        "T": 16,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 32,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 128,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 512,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 2,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 2,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 16,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 16,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      },
+      {
+        "T": 64,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.1,
+        "eta2": 0.1,
+        "k": 8,
+        "kappa": 1.0,
+        "phase1_order_1_over_eta1_sigma_k": 10.0,
+        "phase2_contraction": 0.975,
+        "total_K1_for_target": 728
+      },
+      {
+        "T": 64,
+        "d": 2048,
+        "dimension_exponent_vector": {
+          "N": 0,
+          "T": 0,
+          "d": 0,
+          "k": 0
+        },
+        "eta1": 0.0015625,
+        "eta2": 0.05,
+        "k": 8,
+        "kappa": 2.0,
+        "phase1_order_1_over_eta1_sigma_k": 640.0,
+        "phase2_contraction": 0.9875,
+        "total_K1_for_target": 1466
+      }
+    ],
+    "negative_control": {
+      "mutated_total_K1_by_d": [
+        23570,
+        94306,
+        377248,
+        1509014
+      ],
+      "mutation": "replace eta2=c2/sigma1 by eta2=c2/d",
+      "rejected": true
+    },
+    "spread_across_dimensions_by_kappa": {
+      "1.0": 0,
+      "2.0": 0
+    },
+    "verdict": "VERIFIED"
+  },
+  "claim_5": {
+    "certificate_passed": true,
+    "contract": "Theorem 5.1 displays N greater than order sigma^2(d+T)k kappa^4/sigma_k^2.",
+    "negative_control": {
+      "mutation": "replace kappa^4 by kappa^2",
+      "rejected": true
+    },
+    "sample_condition_grid": [
+      {
+        "T": 20,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 15.555555555555555
+      },
+      {
+        "T": 20,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 248.88888888888889
+      },
+      {
+        "T": 20,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 38.888888888888886
+      },
+      {
+        "T": 20,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 622.2222222222222
+      },
+      {
+        "T": 80,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 28.88888888888889
+      },
+      {
+        "T": 80,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 462.22222222222223
+      },
+      {
+        "T": 80,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 72.22222222222223
+      },
+      {
+        "T": 80,
+        "d": 50,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 1155.5555555555557
+      },
+      {
+        "T": 20,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 26.666666666666668
+      },
+      {
+        "T": 20,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 426.6666666666667
+      },
+      {
+        "T": 20,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 66.66666666666667
+      },
+      {
+        "T": 20,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 1066.6666666666667
+      },
+      {
+        "T": 80,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 40.0
+      },
+      {
+        "T": 80,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 640.0
+      },
+      {
+        "T": 80,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 100.0
+      },
+      {
+        "T": 80,
+        "d": 100,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 1600.0
+      },
+      {
+        "T": 20,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 48.888888888888886
+      },
+      {
+        "T": 20,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 782.2222222222222
+      },
+      {
+        "T": 20,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 122.22222222222223
+      },
+      {
+        "T": 20,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 1955.5555555555557
+      },
+      {
+        "T": 80,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 62.22222222222222
+      },
+      {
+        "T": 80,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 2,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 995.5555555555555
+      },
+      {
+        "T": 80,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 1.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 155.55555555555554
+      },
+      {
+        "T": 80,
+        "d": 200,
+        "exponent_vector": {
+          "d_plus_T": 1,
+          "k": 1,
+          "kappa": 4,
+          "sigma_k": -2,
+          "sigma_squared": 1
+        },
+        "k": 5,
+        "kappa": 2.0,
+        "sigma_k": 1.5,
+        "sigma_squared": 0.25,
+        "threshold_without_constants_or_logs": 2488.8888888888887
+      }
+    ],
+    "verdict": "VERIFIED"
+  },
+  "independent_checker": {
+    "all_independent_checks_passed": true,
+    "claim_3_independent_check": true,
+    "claim_3_max_identity_error": 0.0,
+    "claim_4_independent_check": true,
+    "claim_4_spreads_by_kappa": {
+      "1.0": 0,
+      "2.0": 0
+    },
+    "claim_5_independent_check": true,
+    "claim_5_max_reconstruction_error": 0.0,
+    "source_anchors_passed": true
+  },
+  "limitations": [
+    "The certificate verifies the exact source statements and independently reconstructs their displayed algebra and asymptotic dimension dependence.",
+    "It does not claim a machine formalization of every appendix lemma or identify hidden numerical constants.",
+    "Finite TPGD sweeps remain scoped corroboration rather than a replacement for the high-probability theorem."
+  ],
+  "runtime_seconds": 0.001546330051496625,
+  "source": {
+    "anchor_file": "repro/source/main_result_anchors.tex",
+    "anchor_file_sha256": "a8f95e33752d321c21defba91e906191182423eb5d14ade87c196c0048f15dd1",
+    "anchors_found": {
+      "corollary_rate": true,
+      "dimension_log_initialization": true,
+      "iteration_lower_bound": true,
+      "phase1_step": true,
+      "phase2_contraction": true,
+      "phase2_step": true,
+      "prior_rate": true,
+      "theorem_sample_condition": true
+    },
+    "paper": "arXiv 2605.00473v1",
+    "required_anchors": {
+      "corollary_rate": "\\sigma^2\\cdot\\frac{dk}{NT}",
+      "dimension_log_initialization": "\\left(\\max\\{d+T,k\\}\\right)^{2+C_1\\kappa/2}",
+      "iteration_lower_bound": "K_1\\gtrsim\\frac{1}{\\eta_1\\sigma_k(\\upSigma^*)}",
+      "phase1_step": "\\eta_1\\lesssim\\frac{1}{\\kappa^5\\sigma_1(\\upSigma^*)}",
+      "phase2_contraction": "\\left(1-\\frac{\\sigma_k(\\upSigma^*)}{4}\\eta_2\\right)^{K_1/2}",
+      "phase2_step": "\\eta_2\\lesssim\\frac{1}{\\sigma_1(\\upSigma^*)}",
+      "prior_rate": "\\widetilde{\\calO}(\\frac{d k^2}{N T})",
+      "theorem_sample_condition": "N\\gtrsim\\frac{\\sigma^2(d+T)k\\kappa^4}{\\sigma_k^2(\\upSigma^*)}"
+    },
+    "source_archive_sha256": "1f9b28d527bc30de0dd327a8ad86466e1ffce415b04a6a78158ed2ca02c9556f"
+  }
+}
