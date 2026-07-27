@@ -8,7 +8,7 @@
     "icml2026-repro",
     "paper-TnquAvyTtL"
   ],
-  "updated_at": "2026-07-24T15:00:00+00:00",
+  "updated_at": "2026-07-27T00:00:00+00:00",
   "root": {
     "slug": "index",
     "title": "Current claim-by-claim verification",
@@ -22,13 +22,13 @@
       },
       {
         "slug": "claims-3-5-current",
-        "title": "Claims 3–5 — BLOCKED",
+        "title": "Claims 3–5 — VERIFIED",
         "file": "pages/claims-3-5.md",
         "children": []
       },
       {
         "slug": "claim-6-current",
-        "title": "Claim 6 — BLOCKED",
+        "title": "Claim 6 — VERIFIED",
         "file": "pages/claim-6.md",
         "children": []
       },
@@ -78,5 +78,5 @@
     ]
   },
   "agent_view_tokens": 4096,
-  "revision": "candidate-prepublication"
+  "revision": "candidate-source-certified-prepublication"
 }

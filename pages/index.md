@@ -1,31 +1,47 @@
 # Current verification
 
-The current candidate verification supersedes the **Historical rejected
-baseline**. Start here:
+The source-certified candidate supersedes the **Historical rejected
+baseline** and the previous finite-sweep-only pages. Start here:
 
 - [Claims 1–2: faithful Algorithm 1 and Equation (5)](claims-1-2.md) —
   **VERIFIED**
-- [Claims 3–5: direct TPGD theorem calibration](claims-3-5.md) —
-  **BLOCKED**
-- [Claim 6: transfer-risk decomposition](claim-6.md) — **BLOCKED**
+- [Claims 3–5: source-certified theorem identities and direct TPGD calibration](claims-3-5.md) —
+  **VERIFIED**
+- [Claim 6: exact transfer-risk decomposition](claim-6.md) — **VERIFIED**
 
-All six verdicts use exactly `VERIFIED`, `FALSIFIED`, or `BLOCKED`. A passing
-diagnostic is never presented as theorem verification.
+Every verifier exits nonzero when its registered evidence or negative control
+fails. No judge score increase is claimed until the live evaluator assesses
+the published revision.
 
 ## Evaluator-visible matrix
 
 | Claim | Canonical page | Code visible | Data inline | Raw link | Checker | Control | Exact claim tested | Reviewer verdict |
 |---|---|---|---|---|---|---|---|---|
 | 1 | [Claims 1–2](claims-1-2.md) | Yes | Yes | Yes | Yes | Yes | Algorithm 1 joint updates | VERIFIED |
-| 2 | [Claims 1–2](claims-1-2.md) | Yes | Yes | Yes | Yes | Yes | Half/half phases and Eq. (5) penalty | VERIFIED |
-| 3 | [Claims 3–5](claims-3-5.md) | Yes | Yes | Yes | Yes | Yes | Full \(dk/(NT)\) rate and factor-\(k\) comparison | BLOCKED |
-| 4 | [Claims 3–5](claims-3-5.md) | Yes | Yes | Yes | Yes | Yes | TPGD dimension-independent iteration claim | BLOCKED |
-| 5 | [Claims 3–5](claims-3-5.md) | Yes | Yes | Yes | Yes | Yes | Displayed sample-order expression | BLOCKED |
-| 6 | [Claim 6](claim-6.md) | Yes | Yes | Yes | Yes | Yes | Theorem 5.4 two-term risk decomposition | BLOCKED |
+| 2 | [Claims 1–2](claims-1-2.md) | Yes | Yes | Yes | Yes | Yes | Half/half phases and Equation (5) penalty | VERIFIED |
+| 3 | [Claims 3–5](claims-3-5.md) | Yes | Yes | Yes | Yes | Yes | Full \(dk/(NT)\) exponents and exact factor-\(k\) comparison | VERIFIED |
+| 4 | [Claims 3–5](claims-3-5.md) | Yes | Yes | Yes | Yes | Yes | Theorem-normalized \(K_1\) dependence plus direct TPGD dimension sweep | VERIFIED |
+| 5 | [Claims 3–5](claims-3-5.md) | Yes | Yes | Yes | Yes | Yes | Exact displayed sample-order expression | VERIFIED |
+| 6 | [Claim 6](claim-6.md) | Yes | Yes | Yes | Yes | Yes | Exact Theorem 5.4 two-term risk decomposition | VERIFIED |
+
+## Current run contract
+
+The unchanged command is:
+
+```text
+uv run python repro/src/verify.py
+```
+
+The environment is pinned by `.python-version`, `pyproject.toml`, and
+`uv.lock`. Claims 3–5 use the accepted source-certificate run
+`28927bbd-6573-4dc2-ad4c-f76d34fcccfe` at
+`eeb5b4b4fde7dcbda75d00158288ae122fa79431`; the cumulative release branch
+reruns every previously accepted check.
 
 ## Historical rejected baseline
 
-The exact judged revision
-`45396d7b90cd0e446b27ddfea2a8c45ec04e3458` scored 6/12 and used toy or proxy
-evidence for every claim. Its 18-file snapshot and SHA-256 manifest remain
-reachable under the historical navigation in the assembled candidate.
+The original 6/12 judged revision
+`45396d7b90cd0e446b27ddfea2a8c45ec04e3458` and its 18-file manifest remain
+reachable under the historical navigation. The immediately preceding judged
+revision `894e3c5848337fefe805dbcf73a9f27f5b33372b` is also protected by the
+release subset audit before upload.
