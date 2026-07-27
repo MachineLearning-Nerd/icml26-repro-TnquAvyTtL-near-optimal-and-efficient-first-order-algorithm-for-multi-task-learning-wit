@@ -1,0 +1,27 @@
+{
+  "dataset_id": "ICML-2026-agent-repro/verdicts",
+  "dataset_revision": "d596af9bfabe144697eedba29dca63b3ed4bc9b2",
+  "dataset_retrieved_at": "2026-07-27",
+  "filter": {
+    "field": "space_id",
+    "equals": "DineshAI/TnquAvyTtL",
+    "matching_rows": 1
+  },
+  "judged_space_revision": "894e3c5848337fefe805dbcf73a9f27f5b33372b",
+  "judged_at": "2026-07-24T17:41:13+00:00",
+  "judge_model": "GLM-5.2",
+  "explicit_total_score_field_present": false,
+  "claim_verdicts": {
+    "1": "verified",
+    "2": "verified",
+    "3": "inconclusive",
+    "4": "inconclusive",
+    "5": "inconclusive",
+    "6": "verified"
+  },
+  "unresolved_criticisms": {
+    "3": "finite slopes did not establish the complete theorem rate",
+    "4": "first-hit medians did not establish dimension invariance",
+    "5": "empirical threshold slope did not verify the displayed expression"
+  }
+}

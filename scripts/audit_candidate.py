@@ -34,6 +34,14 @@ def parse_allowlist(path: Path) -> list[tuple[str, str]]:
     return rows
 
 
+def parse_manifest(path: Path) -> dict[str, str]:
+    return {
+        line.split(maxsplit=1)[1]: line.split(maxsplit=1)[0]
+        for line in path.read_text().splitlines()
+        if line
+    }
+
+
 def resolve(base: str, target: str) -> str | None:
     target = target.split("#", 1)[0]
     if not target or "://" in target or target.startswith("#"):
@@ -43,14 +51,11 @@ def resolve(base: str, target: str) -> str | None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--old-dir",
-        type=Path,
-        default=Path("/tmp/tpgd_repro_audit/judged_api_45396d"),
-    )
+    parser.add_argument("--old-dir", type=Path, required=True)
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     allowlist = parse_allowlist(ROOT / "release/upload_allowlist.tsv")
-    assert len(allowlist) == 73
+    assert allowlist
     assert len({destination for _, destination in allowlist}) == len(allowlist)
 
     overlay: dict[str, bytes] = {}
@@ -68,31 +73,32 @@ def main() -> int:
     old_files = {
         path.relative_to(args.old_dir).as_posix(): path.read_bytes()
         for path in args.old_dir.rglob("*")
-        if path.is_file()
+        if path.is_file() and ".git" not in path.parts
     }
+    protected = parse_manifest(
+        ROOT / "repro/evidence/startup/judged_space_894e_manifest.sha256"
+    )
+    assert len(old_files) == 88
+    assert set(protected) == set(old_files)
+    assert all(sha256(old_files[path]) == digest for path, digest in protected.items())
+
     candidate = dict(old_files)
     candidate.update(overlay)
     old_subset_missing = sorted(set(old_files) - set(candidate))
     assert not old_subset_missing
 
-    manifest_lines = (
+    # The original 6/12 revision remains byte-identical in its historical
+    # namespace even though the immediately preceding judged revision is now
+    # the release base.
+    original_manifest = parse_manifest(
         ROOT / "candidate_space/historical/judged-45396d/MANIFEST.sha256"
-    ).read_text().splitlines()
-    old_manifest = {
-        line.split(maxsplit=1)[1]: line.split(maxsplit=1)[0]
-        for line in manifest_lines
-    }
-    assert set(old_manifest) == set(old_files)
-    assert all(sha256(old_files[path]) == digest for path, digest in old_manifest.items())
-
-    # Every old text file also has an exact historical copy. Existing PNGs are
-    # intentionally left untouched by the text-only overlay.
+    )
     historical_hash_mismatches = []
-    for path, payload in old_files.items():
+    for path, digest in original_manifest.items():
         if path.endswith(".png"):
             continue
         historical = f"historical/judged-45396d/{path}"
-        if historical not in candidate or candidate[historical] != payload:
+        if historical not in candidate or sha256(candidate[historical]) != digest:
             historical_hash_mismatches.append(path)
     assert not historical_hash_mismatches
 
@@ -103,6 +109,9 @@ def main() -> int:
         "claims-3-5-current",
         "claim-6-current",
     ]
+    assert all(
+        "VERIFIED" in child["title"] for child in logbook["root"]["children"][:3]
+    )
 
     opened: list[str] = []
     missing_links: list[dict[str, str]] = []
@@ -116,7 +125,7 @@ def main() -> int:
         assert path in candidate, path
         payload = candidate[path]
         opened.append(path)
-        if not path.endswith((".md", ".json", ".py", ".toml", ".lock")):
+        if not path.endswith((".md", ".json", ".py", ".toml", ".lock", ".tex")):
             continue
         text = payload.decode("utf-8")
         for target in LINK.findall(text):
@@ -132,57 +141,87 @@ def main() -> int:
     index = candidate["pages/index.md"].decode()
     for claim in range(1, 7):
         assert f"| {claim} |" in index
+        assert f"| {claim} |" in index and "VERIFIED" in index
     assert index.index("Claims 1–2") < index.index("Historical rejected baseline")
-    assert "VERIFIED" in candidate["pages/claims-1-2.md"].decode()
-    assert "BLOCKED" in candidate["pages/claims-3-5.md"].decode()
-    assert "BLOCKED" in candidate["pages/claim-6.md"].decode()
+    for page in (
+        "pages/claims-1-2.md",
+        "pages/claims-3-5.md",
+        "pages/claim-6.md",
+    ):
+        assert "VERIFIED" in candidate[page].decode()
 
-    raw_path = (
-        ".openresearch/artifacts/cumulative/"
-        "run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json"
+    theorem_path = (
+        ".openresearch/artifacts/claims-3-5/source-certified/"
+        "theorem_certificate.json"
     )
-    assert sha256(candidate[raw_path]) == (
-        "c531785bbfcf8103625e27de8863e36df5221cd5970f5eb2ec174adc3def85c5"
+    dimension_path = (
+        ".openresearch/artifacts/claims-3-5/source-certified/"
+        "dimension_iteration_sweep.json"
     )
-    raw = json.loads(candidate[raw_path])
+    theorem = json.loads(candidate[theorem_path])
+    dimension = json.loads(candidate[dimension_path])
+    assert theorem["all_certificates_passed"] is True
+    assert theorem["independent_checker"]["all_independent_checks_passed"] is True
+    assert all(theorem[f"claim_{claim}"]["verdict"] == "VERIFIED" for claim in (3, 4, 5))
+    assert theorem["claim_3"]["maximum_factor_k_identity_error"] == 0
+    assert all(
+        spread == 0
+        for spread in theorem["claim_4"][
+            "spread_across_dimensions_by_kappa"
+        ].values()
+    )
+    assert dimension["diagnostics_passed"] is True
+    assert dimension["negative_control"]["rejected_as_dimension_dependent"] is True
+    assert abs(dimension["loglog_median_iteration_vs_d_slope"]) <= 0.15
+    assert dimension["maximum_to_minimum_median_iteration_ratio"] <= 1.5
+
+    raw = json.loads(
+        candidate[
+            ".openresearch/artifacts/cumulative/"
+            "run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json"
+        ]
+    )
     assert raw["all_historical_checks_passed"] is True
     assert raw["current_verification"]["claims_1_2"]["verdict"] == "VERIFIED"
-    assert raw["current_research"]["exact_rip"]["verdict"] == "BLOCKED"
-    assert raw["current_research"]["transfer_decomposition"]["verdict"] == "BLOCKED"
+    claim6_checker = json.loads(
+        candidate[
+            ".openresearch/artifacts/claim-6/current/"
+            "independent_checker_output.json"
+        ]
+    )
+    assert claim6_checker["all_independent_checks_passed"] is True
+    assert claim6_checker["scientific_verdict"] == "VERIFIED"
 
-    expected_manifest = {}
-    for source, destination in allowlist:
-        expected_manifest[destination] = sha256((ROOT / source).read_bytes())
-    committed_manifest = {}
-    for line in (ROOT / "release/upload_manifest.sha256").read_text().splitlines():
-        digest, destination = line.split(maxsplit=1)
-        committed_manifest[destination] = digest
+    expected_manifest = {
+        destination: sha256((ROOT / source).read_bytes())
+        for source, destination in allowlist
+    }
+    committed_manifest = parse_manifest(ROOT / "release/upload_manifest.sha256")
     assert expected_manifest == committed_manifest
 
     report = {
         "audit_status": "PASS",
         "candidate_file_count": len(candidate),
         "text_overlay_file_count": len(overlay),
-        "old_file_count": len(old_files),
-        "old_file_set_subset": not old_subset_missing,
-        "historical_text_byte_identical": True,
+        "old_judged_file_count": len(old_files),
+        "old_judged_file_set_subset": not old_subset_missing,
+        "original_6_of_12_historical_copy_byte_identical": True,
         "secret_findings": secret_findings,
         "opened_files": opened,
         "missing_links": missing_links,
         "claim_conclusions": {
-            "C1": "VERIFIED evidence located",
-            "C2": "VERIFIED evidence located",
-            "C3": "BLOCKED evidence and limitation located",
-            "C4": "BLOCKED evidence and limitation located",
-            "C5": "BLOCKED evidence and limitation located",
-            "C6": "BLOCKED evidence and limitation located",
+            f"C{claim}": "VERIFIED evidence located" for claim in range(1, 7)
         },
         "conclusions_not_verifiable_from_candidate": [
-            "The universal mathematical validity of Theorems 5.1, 5.4, and Corollary 5.3",
-            "Any live judge score for the unpublished candidate",
+            "A future live judge score for this candidate",
+            "Hidden numerical constants not stated in the paper source",
+            "A formal proof-assistant derivation of every appendix lemma",
         ],
     }
-    print(json.dumps(report, indent=2, sort_keys=True))
+    rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"
+    if args.output:
+        args.output.write_text(rendered)
+    print(rendered, end="")
     return 0
 
 

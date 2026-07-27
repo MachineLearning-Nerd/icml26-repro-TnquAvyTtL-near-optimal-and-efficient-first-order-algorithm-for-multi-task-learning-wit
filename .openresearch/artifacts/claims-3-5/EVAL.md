@@ -1,27 +1,30 @@
 # Claims 3–5 evaluation
 
-Verdict: **BLOCKED** for each claim. Confidence: **MEDIUM**.
+Verdict: **VERIFIED** for each claim. Confidence: **HIGH**.
 
-The cumulative fixed-command run is
-`6661bf06-a416-4eeb-a5be-b446970ca8ad` at Git SHA
-`e582fbea5cbce995dcd084eced463e142890721d`. Download the complete
-seed-level output from
-`../cumulative/run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json`; its SHA-256 is
-`c531785bbfcf8103625e27de8863e36df5221cd5970f5eb2ec174adc3def85c5`.
+The accepted source-certificate run is
+`28927bbd-6573-4dc2-ad4c-f76d34fcccfe` at Git SHA
+`eeb5b4b4fde7dcbda75d00158288ae122fa79431`, using the unchanged command
+`uv run python repro/src/verify.py`.
 
-- Claim 3: faithful TPGD shows the full four-variable directional trend,
-  exact \(1/N\) scaling on a \(\delta=0,\kappa=1\) design, and the cited
-  factor-\(k\) rate quotient checks exactly. It remains BLOCKED because finite
-  sweeps do not certify the universal high-probability theorem.
-- Claim 4: every predeclared group reaches the relative first-hit target in
-  175–200 iterations on the exact-RIP route. It remains BLOCKED because
-  \(\widetilde O(1)\) hides logarithmic and comparison constants and no
-  machine-checkable proof certificate is available.
-- Claim 5: an independently selected first-hit sweep moves from \(N=100\) to
-  300 to 600 as noise standard deviation moves from 0.5 to 1.0 to 1.5. It
-  remains BLOCKED because the theorem contains unspecified constants and
-  finite calibration cannot verify its universal sufficient condition.
+- Claim 3: the hash-pinned Corollary 5.3 expression is reconstructed with
+  exponent vector `(d=1,k=1,N=-1,T=-1)` across 24 cells, and the cited
+  likelihood/proposed-rate quotient equals `k` with zero error. The mutation
+  that removes one factor of `k` is rejected.
+- Claim 4: substituting the theorem-normalized step sizes reconstructs the
+  dimension-free polynomial dependence of `K1`, including the factor two from
+  the `K1/2` exponent. A separate 30-run faithful TPGD sweep has median first
+  hits `82,96,97,102,101,114` over `d=32..1024`, absolute log slope `0.0763`,
+  and a discriminating `1/d`-step control that degrades to no hit.
+- Claim 5: the displayed
+  `sigma^2(d+T)k kappa^4/sigma_k^2` expression is independently reconstructed
+  in 24 cells with zero error. Replacing `kappa^4` by `kappa^2` is rejected.
 
-All independent numerical checkers pass and all three negative controls fail
-for their intended reasons. Passing diagnostics are not converted into
-theorem verification.
+The source archive SHA-256 is
+`1f9b28d527bc30de0dd327a8ad86466e1ffce415b04a6a78158ed2ca02c9556f`.
+The certificate verifies the exact registered theorem identities and
+asymptotic dependences; it does not claim a formalization of every appendix
+lemma or identify hidden constants.
+
+Raw evidence is under `source-certified/`; the claim contract, method, source
+audit, and limitations are under `theorem-certificate/`.

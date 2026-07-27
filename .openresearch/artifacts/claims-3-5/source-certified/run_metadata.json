@@ -1,0 +1,22 @@
+{
+  "experiment_id": "4ad2637e-302e-471d-8ca4-b348dbe49c8c",
+  "run_id": "28927bbd-6573-4dc2-ad4c-f76d34fcccfe",
+  "git_sha": "eeb5b4b4fde7dcbda75d00158288ae122fa79431",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "backend": "hf",
+  "flavor": "cpu-upgrade",
+  "image": "ghcr.io/astral-sh/uv:python3.12-bookworm-slim",
+  "estimated_required_cores": 1,
+  "routing_reason": "Runtime was uncertain, so campaign policy required HF cpu-upgrade.",
+  "actual_host_logical_cpus": 64,
+  "numerical_thread_limit": 8,
+  "orx_wall_runtime": "5m28s",
+  "verifier_runtime_seconds": 298.69373796507716,
+  "dimension_sweep_runtime_seconds": 5.185084311058745,
+  "dimension_sweep_seeds": [9201, 9202, 9203, 9204, 9205],
+  "statuses": {
+    "theorem_certificate": "PASS",
+    "dimension_iteration": "PASS",
+    "historical_baseline": "PASS"
+  }
+}
