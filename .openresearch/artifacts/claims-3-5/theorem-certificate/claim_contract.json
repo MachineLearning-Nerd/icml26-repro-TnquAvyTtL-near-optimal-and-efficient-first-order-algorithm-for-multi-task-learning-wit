@@ -1,0 +1,17 @@
+{
+  "claims": {
+    "3": "Corollary 5.3 states the population rate sigma^2 d k/(N T), and the cited likelihood rate d k^2/(N T) differs by exactly k.",
+    "4": "At fixed condition number and the theorem-normalized step sizes, TPGD has no polynomial dependence on d, k, T, or N in K1; the initialization contributes only logarithmic dimension dependence.",
+    "5": "Theorem 5.1 displays the sufficient per-task sample condition N greater than order sigma^2(d+T)k kappa^4/sigma_k^2."
+  },
+  "source_archive_sha256": "1f9b28d527bc30de0dd327a8ad86466e1ffce415b04a6a78158ed2ca02c9556f",
+  "verifier": "repro/src/theorem_certificate.py",
+  "independent_checker": "repro/src/theorem_certificate_checker.py",
+  "dimension_sweep": "repro/src/dimension_iteration_sweep.py",
+  "fixed_command": "uv run python repro/src/verify.py",
+  "required_negative_controls": [
+    "remove one factor k from the likelihood rate",
+    "replace the normalized Phase-II step by a 1/d step",
+    "replace kappa^4 by kappa^2"
+  ]
+}
