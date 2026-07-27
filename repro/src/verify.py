@@ -42,6 +42,9 @@ from factorial_sweep import run_factorial_sweep
 from exact_rip_sweep import run_exact_rip_sweep
 from transfer_decomposition import run_transfer_decomposition
 from rate_comparison_audit import run_rate_comparison_audit
+from theorem_certificate import run_theorem_certificate
+from theorem_certificate_checker import check_theorem_certificate
+from dimension_iteration_sweep import run_dimension_iteration_sweep
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -221,6 +224,17 @@ def main() -> int:
     rate_comparison = run_rate_comparison_audit()
     REPORT["current_research"]["rate_comparison"] = rate_comparison
     results.append(bool(rate_comparison["independent_checker_passed"]))
+    theorem_certificate = run_theorem_certificate()
+    theorem_checker = check_theorem_certificate(theorem_certificate)
+    theorem_certificate["independent_checker"] = theorem_checker
+    REPORT["current_research"]["theorem_certificate"] = theorem_certificate
+    results.append(
+        bool(theorem_certificate["all_certificates_passed"])
+        and bool(theorem_checker["all_independent_checks_passed"])
+    )
+    dimension_iteration = run_dimension_iteration_sweep()
+    REPORT["current_research"]["dimension_iteration"] = dimension_iteration
+    results.append(bool(dimension_iteration["diagnostics_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -257,6 +271,20 @@ def main() -> int:
     print(
         "rate_comparison_audit_status="
         f"{'PASS' if rate_comparison['independent_checker_passed'] else 'FAIL'}"
+    )
+    print("THEOREM_CERTIFICATE_JSON_BEGIN")
+    print(json.dumps(theorem_certificate, indent=2, sort_keys=True))
+    print("THEOREM_CERTIFICATE_JSON_END")
+    print(
+        "theorem_certificate_status="
+        f"{'PASS' if theorem_certificate['all_certificates_passed'] and theorem_checker['all_independent_checks_passed'] else 'FAIL'}"
+    )
+    print("DIMENSION_ITERATION_JSON_BEGIN")
+    print(json.dumps(dimension_iteration, indent=2, sort_keys=True))
+    print("DIMENSION_ITERATION_JSON_END")
+    print(
+        "dimension_iteration_status="
+        f"{'PASS' if dimension_iteration['diagnostics_passed'] else 'FAIL'}"
     )
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1

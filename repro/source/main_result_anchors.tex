@@ -1,0 +1,41 @@
+% Verbatim source lines from arXiv 2605.00473v1,
+% Main_Latex/main_result.tex. Unrelated intervening prose is omitted.
+% Source archive SHA-256:
+% 1f9b28d527bc30de0dd327a8ad86466e1ffce415b04a6a78158ed2ca02c9556f
+% Retrieved 2026-07-24 with an explicit browser User-Agent.
+
+\begin{theorem}\label{theorem1}
+Under Assumption \ref{ass}, suppose $\delta\lesssim\min$ $\{k^{-1/2}\kappa^{-7/2},\kappa^{-6}\}$ and select the hyper-parameters as follows:
+\begin{equation}\label{parameter-setting-learning-representation}
+    \begin{aligned}
+    &\widetilde{\alpha}\lesssim\frac{\sigma_1(\upSigma^*)}{k^5\left(\max\{d+T,k\}\right)^{2+C_1\kappa/2}}\cdot\left(\frac{\widetilde{\delta}}{\kappa^2}\right)^{C_1\kappa},\\
+    &\, \, \, \, \, \, \, \, \, \eta_1\lesssim\frac{1}{\kappa^5\sigma_1(\upSigma^*)},\quad K_1\gtrsim\frac{1}{\eta_1\sigma_k(\upSigma^*)},\\
+    &\, \, \, \, \, \, \, \, \, \eta_2\lesssim\frac{1}{\sigma_1(\upSigma^*)},\quad N\gtrsim\frac{\sigma^2(d+T)k\kappa^4}{\sigma_k^2(\upSigma^*)},
+    \end{aligned}
+\end{equation}
+where $\widetilde{\delta}\in(0,1)$ denotes the failure probability. Then the output $\widehat{\upB}=\upB^{(K_1)}, \widehat{\upW}=\upW^{(K_1)}$ from the last iteration of Algorithm \ref{TPGD} satisfies
+\begin{align*}
+    &\left[\dist\left(\begin{pmatrix}
+        \widehat{\upB}\\
+        \widehat{\upW}^{\top}
+    \end{pmatrix}, \begin{pmatrix}
+        \upF\\
+        \upG
+    \end{pmatrix}\right)\right]^2
+    \\
+    \lesssim&\left(1-\frac{\sigma_k(\upSigma^*)}{4}\eta_2\right)^{K_1/2}\sigma_k(\upSigma^*)+{\sigma^2}\cdot\frac{\tr\left(\upSigma^*\right)d}{\sigma_k^2\left(\upSigma^*\right)N},
+\end{align*}
+\end{theorem}
+
+One can notice that $\upB^*$ and $\upF$ are equivalent up to an invertible transformation $\upP \in\bbR^{k \times k}$, i.e., $\upB^*=\upF\upP$. Consequently, treating $\kappa(\upSigma^*)$ as a constant, Theorem \ref{theorem1} implies that $[\dist(\widehat{\upB}, \upB^*\upP^{-1})]^2\leq\widetilde{\calO}(\frac{\sigma^2 dk}{\sigma_k(\upSigma^*)N})$. For the detailed derivation, we refer the reader to Section \ref{sec-proof-thm1} in the appendix. It is worth noting that directly applying the analysis of \citet{xiong2023overparameterizationslowsgradientdescent} to traditional gradient descent for linear low-rank MTL suffers two major challenges. (1) High computational complexity: Existing techniques guarantee convergence only when the step size is smaller than $(\text{poly}(d))^{-1}$, requiring more than $\widetilde{\calO}(\text{poly}(d))$ iterations. In contrast, Algorithm \ref{TPGD} allows a constant step size, achieving convergence within $\widetilde{\calO}(1)$ iterations. (2) Overly stringent RIP condition: Existing techniques require the RIP constant $\delta \lesssim k^{-1}$ for global convergence, which means that a sample size of $N \gtrsim d k^2$ per task is necessary under the Gaussian setting. Our algorithm only requires $\delta \lesssim k^{-1/2}$ in its first phase to converge to a neighborhood of the ground-truth, and further relaxes this to $\delta \lesssim 1$ in the second phase. Thus, under the Gaussian setting, sample size $N \gtrsim dk$ assumed in Theorem \ref{theorem1} is sufficient to ensure $\delta\lesssim k^{-1/2}$.
+
+The following corollary implies that under the conditions $T > k$ and $N$ samples per task, the estimation error  of MTL  is strictly lower than that of learning $T$ task parameters independently ($\widetilde{\calO}(\frac{dk}{NT})$ v.s. $\widetilde{\calO}(\frac{d}{N})$).
+\begin{corollary}\label{coro-main}
+    Suppose that the assumptions and hyper-parameter settings of Theorem \ref{theorem1} hold.
+    Then, the MTL population loss achieved by Algorithm \ref{TPGD} satisfies
+    \begin{align*}
+        \frac{1}{T}\sum_{t=1}^T\left\|\widehat{\upv}_t-\upv_t^*\right\|^2\lesssim\sigma^2\cdot\frac{dk}{NT},
+    \end{align*}
+    with probability at least $1-\widetilde{\delta}-C_2\exp(-C_3k)$, where $\upv_t^*:=\upB^*\upw_t^*$ and  $\widehat{\upv}_t:=\widehat{\upB}\widehat{\upw}_t$ for any $t\in[T]$.
+\end{corollary}
+The best known likelihood-based method \citep{tripuraneni2021provable,du2021few,thekumparampil2021statistically,duan2023adaptive,tian2025learning} achieve a convergence rate of $\widetilde{\calO}(\frac{d k^2}{N T})$ for the population loss $\frac{1}{T}\sum_{t=1}^T\|\widehat{\upv}_t-\upv_t^*\|^2$. According to Corollary \ref{coro-main}, our algorithm attains a faster rate of $\widetilde{\calO}(\frac{dk}{NT})$. This rate matches the known lower bound \citep{tripuraneni2021provable,tian2025learning} up to logarithmic factors.
