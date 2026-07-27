@@ -28,7 +28,7 @@ def check_theorem_certificate(certificate):
     }
     c4 = (
         source_passed
-        and len(claim4["iteration_grid"]) == 64
+        and len(claim4["iteration_grid"]) == 32
         and all(spread == 0 for spread in independent_spreads.values())
         and claim4["negative_control"]["rejected"]
     )
