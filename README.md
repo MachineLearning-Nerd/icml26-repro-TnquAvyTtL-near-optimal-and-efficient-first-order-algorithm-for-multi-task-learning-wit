@@ -39,7 +39,7 @@ local CPU thread. Uncertain or multi-core work ran on Hugging Face
 - [Held-out Claim 5 raw JSON](.openresearch/artifacts/claims-3-5/direct-current/claim5_threshold_phase_diagram.json)
 - [Independent checks](.openresearch/artifacts/claims-3-5/direct-current/independent_checker_output.json)
 - [Complete seed-level raw JSON](.openresearch/artifacts/cumulative/run_6661bf06-a416-4eeb-a5be-b446970ca8ad.json)
-- [Current evaluator-visible claim index](candidate_space/pages/index.md)
+- [Current evaluator-visible claim index](pages/index.md)
 
 ## Experiment log
 

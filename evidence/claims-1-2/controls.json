@@ -1,0 +1,12 @@
+{
+  "factor_two_penalty_control": {
+    "relative_errors_B_W": [0.0205743702585174, 0.017454525608225323],
+    "rejection_threshold": 0.001,
+    "failed_as_intended": true
+  },
+  "off_by_one_phase_control": {
+    "observed_mutated_sequence": ["I", "II", "II", "II"],
+    "required_sequence": ["I", "I", "II", "II"],
+    "failed_as_intended": true
+  }
+}
