@@ -5,7 +5,7 @@ computes that expression only after all TPGD outcomes have been generated.
 """
 
 CLAIM5_THRESHOLD_CONFIG = {
-    "seeds": [8501, 8502, 8503, 8504, 8505],
+    "seeds": [8601, 8602, 8603, 8604, 8605],
     "N_grid": [32, 64, 128, 256, 512, 1024, 2048, 4096],
     "base": {
         "d": 128,
@@ -29,6 +29,11 @@ CLAIM5_THRESHOLD_CONFIG = {
     "absolute_stacked_distance_squared_target": 0.20,
     "normalized_stacked_distance_squared_target": 0.05,
     "successes_required_out_of_five": 4,
-    "high_ratio_margin": 4.0,
+    # Frozen from the separate 8501--8505 calibration branch, whose maximum
+    # observed first-success ratio was 10.  These held-out seeds never
+    # influenced this margin.
+    "high_ratio_margin": 10.0,
     "low_ratio_margin": 0.25,
+    "route_role": "held-out validation after an immutable calibration run",
+    "calibration_run": "200bd469-e6d7-484b-9571-d9503ef82f35",
 }

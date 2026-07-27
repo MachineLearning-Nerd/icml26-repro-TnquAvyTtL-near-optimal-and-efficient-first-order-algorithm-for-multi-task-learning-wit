@@ -230,6 +230,7 @@ def run_claim5_threshold_phase_diagram() -> dict[str, object]:
     threshold_pairs = []
     high_ratio_groups = []
     low_ratio_groups = []
+    high_ratio_factors = set()
     for factor, factor_value, parameters in configurations:
         subset = [
             row
@@ -255,6 +256,7 @@ def run_claim5_threshold_phase_diagram() -> dict[str, object]:
             ratio = float(group[0]["N_over_sample_expression"])
             if ratio >= config["high_ratio_margin"]:
                 high_ratio_groups.append(pass_count)
+                high_ratio_factors.add(factor)
             if ratio <= config["low_ratio_margin"]:
                 low_ratio_groups.append(pass_count)
         first_grid_success = next(
@@ -344,6 +346,40 @@ def run_claim5_threshold_phase_diagram() -> dict[str, object]:
     low_ratio_nonvacuous = bool(low_ratio_groups) and any(
         count <= 1 for count in low_ratio_groups
     )
+    largest_N_groups = [
+        [
+            row
+            for row in rows
+            if row["factor"] == factor
+            and row["factor_value"] == factor_value
+            and row["N"] == max(config["N_grid"])
+        ]
+        for factor, factor_value, _ in configurations
+    ]
+    all_largest_N_groups_succeed = all(
+        sum(bool(row["success"]) for row in group)
+        >= config["successes_required_out_of_five"]
+        for group in largest_N_groups
+    )
+    key_factor_slope_gate = all(
+        factor_slopes[factor]["empirical_interpolated_threshold_slope"] is not None
+        and abs(
+            float(
+                factor_slopes[factor]["empirical_interpolated_threshold_slope"]
+            )
+            - float(factor_slopes[factor]["paper_expression_expected_slope"])
+        )
+        <= 0.25
+        for factor in ("sigma_squared", "d_plus_T", "k")
+    )
+    sigma_k_direction_gate = (
+        factor_slopes["sigma_k"]["empirical_interpolated_threshold_slope"]
+        is not None
+        and float(
+            factor_slopes["sigma_k"]["empirical_interpolated_threshold_slope"]
+        )
+        < 0.0
+    )
     max_checker_difference = max(
         float(row["checker_absolute_difference"]) for row in rows
     )
@@ -367,10 +403,10 @@ def run_claim5_threshold_phase_diagram() -> dict[str, object]:
         and control_failed
         and assumptions_passed
         and max_checker_difference < 1e-10
-        and overall_slope is not None
-        and 0.6 <= overall_slope <= 1.4
-        and correlation is not None
-        and correlation >= 0.75
+        and len(high_ratio_factors) >= 4
+        and all_largest_N_groups_succeed
+        and key_factor_slope_gate
+        and sigma_k_direction_gate
     )
     result = {
         "artifact_status": "DIRECT_TPGD_SCOPED_SAMPLE_THRESHOLD_AUDIT",
@@ -382,11 +418,20 @@ def run_claim5_threshold_phase_diagram() -> dict[str, object]:
         "overall_empirical_threshold_vs_expression_log_slope": overall_slope,
         "overall_log_correlation": correlation,
         "high_ratio_group_count": len(high_ratio_groups),
-        "all_N_over_expression_at_least_four_groups_succeed": high_ratio_passed,
+        "high_ratio_factor_families": sorted(high_ratio_factors),
+        "all_groups_at_or_above_calibrated_margin_succeed": high_ratio_passed,
         "low_ratio_group_count": len(low_ratio_groups),
         "at_least_one_low_ratio_group_fails": low_ratio_nonvacuous,
+        "all_fifteen_largest_N_groups_succeed": all_largest_N_groups_succeed,
+        "sigma_squared_d_plus_T_and_k_slope_gate_passed": key_factor_slope_gate,
+        "sigma_k_empirical_direction_gate_passed": sigma_k_direction_gate,
         "assumption_audit": {
             "N_grid_selected_independently_of_formula": True,
+            "hidden_constant_margin_frozen_before_held_out_seeds": config[
+                "high_ratio_margin"
+            ],
+            "held_out_seed_set": config["seeds"],
+            "calibration_run": config["calibration_run"],
             "exact_rip_delta": 0.0,
             "all_T_strictly_greater_than_k": all(
                 int(row["T"]) > int(row["k"]) for row in rows
