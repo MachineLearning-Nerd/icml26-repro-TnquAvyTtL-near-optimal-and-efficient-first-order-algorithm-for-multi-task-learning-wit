@@ -88,6 +88,16 @@ orx exp run 50a1ceec-4df5-4d94-b92c-c2065a13cdcb --backend hf --flavor cpu-upgra
 The middle command exited nonzero because its scientific gate failed; its
 maximum first-success ratio was frozen before the held-out run.
 
+The cumulative release run used:
+
+```text
+orx exp run 6cc4fad6-89f6-44ea-a0b3-1d2d37e0cd16 --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
+```
+
+It produced immutable run
+`bfe8a183-70cb-4e08-b6fc-583140626422` at
+`2e589579ddf6c47377b4a408497b4e9ad0881392`.
+
 Every run was monitored with:
 
 ```text
@@ -111,6 +121,26 @@ python scripts/audit_candidate.py --old-dir <downloaded-9b378-directory>
 git diff --check
 ```
 
-The pinned marimo 0.14.17 CLI rejected `marimo check` because that subcommand
-does not exist in this version. The executable HTML export and Python
-compilation passed after fixing duplicate reactive-variable definitions.
+The pinned marimo 0.14.17 CLI does not expose `marimo check`, so the notebook
+was checked and formatted with `uvx --from 'marimo>=0.17' marimo check
+--strict`, then exported with the pinned environment.
+
+## Publication
+
+The 121 text paths in `release/upload_allowlist.tsv` were submitted in one
+Hugging Face `create_commit` call with parent
+`9b3781d6a422415a0f474ca7575757c7a2c4d27a`; no delete operation was used.
+The returned revision was
+`cfbfd379671a91e90f406dcd72839374cc1058ab`.
+
+Post-publication checks:
+
+```text
+hf download DineshAI/TnquAvyTtL --repo-type space --revision cfbfd379671a91e90f406dcd72839374cc1058ab
+sha256sum -c release/upload_manifest.sha256
+git push origin HEAD:main
+git ls-remote origin refs/heads/main
+```
+
+The fresh Space download passed 121 hash checks, retained all 110 prior paths,
+and passed a 49-file canonical traversal with zero missing links.

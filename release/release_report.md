@@ -2,7 +2,7 @@
 - Conservative projected score range after the proposed change: `8–12/12`
 - Best-supported possible new score, forecast rather than judge result: `12/12`
 
-# Pre-publication release report
+# Final release report
 
 The exact live verdict is for Space
 `DineshAI/TnquAvyTtL@9b3781d6a422415a0f474ca7575757c7a2c4d27a`,
@@ -61,6 +61,12 @@ The stacked tree descends from the immutable 7/12 release candidate through:
 The failed branch is retained because it explains how \(C=10\) was frozen
 before the held-out seed set. It is not presented as accepted evidence.
 
+The cumulative release candidate is
+`orx/evaluator-visible-direct-tpgd-release-candidate` at Git
+`2e589579ddf6c47377b4a408497b4e9ad0881392`. HF `cpu-upgrade` run
+`bfe8a183-70cb-4e08-b6fc-583140626422` completed in 4m37s with every current
+and historical status passing.
+
 ## Evidence and compute
 
 The fixed command throughout is:
@@ -97,14 +103,21 @@ independent checker, negative controls, seeds, SHAs, CPU, and runtime.
 - The exact text-only upload allowlist contains 121 paths with a SHA-256 manifest.
 - Secret scanning reports no findings.
 - Blind traversal from `README.md` and `pages/index.md` reaches code, inline data, raw output, checkers, controls, and limitations with no broken links.
-- The blind review is recorded and will be repeated after the final cumulative run.
+- The blind review was recorded and repeated after the final cumulative run.
 
-## Exact publication action
+## Publication and post-publication verification
 
-After the final cumulative HF run passes, upload only the 121 allowlisted text
-paths in `release/upload_allowlist.tsv` to the existing Space
-`DineshAI/TnquAvyTtL` using the Hugging Face commit API. Do not create a new
-Space and do not delete files. Then download the returned revision, verify
-every uploaded hash and canonical traversal, mirror reader-facing artifacts
-to GitHub `main`, confirm the remote SHA with `git ls-remote`, and mark the
-paper awaiting the live judge.
+The exact 121 allowlisted text paths were uploaded additively to the existing
+Space `DineshAI/TnquAvyTtL` using the Hugging Face commit API. No Space was
+created and no file was deleted. Published revision:
+`cfbfd379671a91e90f406dcd72839374cc1058ab`.
+
+A fresh download verified 121/121 uploaded hashes, retained every one of the
+110 prior judged paths, opened 49 files from canonical traversal with zero
+broken links, and matched displayed values to raw JSON. Reader-facing
+artifacts were mirrored to GitHub `main` by a non-force fast-forward.
+
+The latest verdict dataset revision checked after publication still points
+`space_id == "DineshAI/TnquAvyTtL"` to judged SHA
+`9b3781d6a422415a0f474ca7575757c7a2c4d27a` and score 7/12. The new Space
+revision is therefore awaiting judge; no score increase is claimed.
