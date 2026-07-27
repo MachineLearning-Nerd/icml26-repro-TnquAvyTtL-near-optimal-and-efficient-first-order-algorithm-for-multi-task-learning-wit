@@ -15,7 +15,7 @@ def main() -> int:
     root = args.snapshot.resolve()
     rows = []
     for path in sorted(root.rglob("*")):
-        if not path.is_file() or ".git" in path.parts:
+        if not path.is_file() or any(part in {".git", ".cache"} for part in path.parts):
             continue
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         rows.append(f"{digest}  {path.relative_to(root).as_posix()}")

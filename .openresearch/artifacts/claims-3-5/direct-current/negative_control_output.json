@@ -1,0 +1,16 @@
+{
+  "all_controls_failed_as_intended": true,
+  "claim_5": {
+    "N": 4096,
+    "failed_as_intended": true,
+    "final_stacked_distance_squared": 8.09509618471943,
+    "mutation": "cyclically permute task sufficient-response columns",
+    "success": false
+  },
+  "claims_3_4": {
+    "failed_as_intended": true,
+    "final_parameter_error": 0.49605309354815585,
+    "mutation": "cyclically permute task sufficient-response columns",
+    "rejection_threshold": 0.06632794549366428
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "all_independent_checks_passed": true,
+  "claim_5_max_absolute_difference": 3.552713678800501e-15,
+  "claims_3_4_max_absolute_difference": 6.938893903907228e-18,
+  "tolerance": 1e-12
+}

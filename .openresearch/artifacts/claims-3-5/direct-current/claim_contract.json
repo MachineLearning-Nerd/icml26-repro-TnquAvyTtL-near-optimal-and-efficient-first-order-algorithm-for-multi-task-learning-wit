@@ -1,0 +1,24 @@
+{
+  "fixed_command": "uv run python repro/src/verify.py",
+  "algorithm": "TPGD Algorithm 1, implemented directly with both phases and Equation (5)",
+  "scope": "Gaussian-noise exact-RIP instances satisfying the machine-checkable assumptions; finite scoped corroboration of the paper's high-probability theorems",
+  "claim_3": {
+    "source_statement": "Corollary 5.3 gives population error of order sigma^2 d k/(N T), and the following paragraph compares it with d k^2/(N T).",
+    "machine_contract": "Across independently selected one-factor grids, direct TPGD's final parameter error must have log-log slopes within 0.25 of (+1,+1,-1,-1) for (d,k,T,N); every 95% seed-bootstrap slope interval must be reported.",
+    "verdict_rule": "VERIFIED only if all four strict slope gates, assumptions, independent checker, and task-permutation negative control pass."
+  },
+  "claim_4": {
+    "source_statement": "At fixed condition number and normalized step sizes, the paper reports iteration complexity independent of d,k,T,N up to logarithmic factors.",
+    "machine_contract": "For each of d,k,T,N varied over four values and six seeds, all runs must hit relative squared error 0.05; absolute log-log median-iteration slope must be at most 0.25 and maximum/minimum median ratio at most 2.",
+    "verdict_rule": "VERIFIED only if all 96 runs hit the target and every factor, assumption, checker, and negative-control gate passes."
+  },
+  "claim_5": {
+    "source_statement": "Theorem 5.1 assumes N of order at least sigma^2(d+T)k kappa^4/sigma_k^2.",
+    "machine_contract": "Use an N grid selected independently of the expression. Calibrate the hidden constant on seeds 8501-8505, freeze it, then require every held-out group with N/expression >= 10 to succeed on seeds 8601-8605 across all five factor families. Also require all largest-N groups to succeed, low-ratio failures, correct sigma^2/d+T/k threshold slopes, negative sigma_k direction, assumptions, checker, and a failing task-permutation control.",
+    "verdict_rule": "VERIFIED as finite sufficient-condition corroboration only if every held-out gate passes; no claim is made that the sufficient expression is a tight necessary transition."
+  },
+  "non_circularity": {
+    "claims_3_4": "The powers-of-two grids, seeds, horizon, and tolerances were committed before outcomes and were not derived from fitted slopes.",
+    "claim_5": "N=[32,...,4096] was fixed independently of the theorem expression. The margin C=10 was frozen from an immutable failed calibration run before the held-out seed set was executed."
+  }
+}

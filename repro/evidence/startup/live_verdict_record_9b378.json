@@ -1,0 +1,51 @@
+{
+  "space_id": "DineshAI/TnquAvyTtL",
+  "orid": "TnquAvyTtL",
+  "paper_title": "Near-Optimal and Efficient First-Order Algorithm for Multi-Task Learning with Shared Linear Representation",
+  "sha": "9b3781d6a422415a0f474ca7575757c7a2c4d27a",
+  "judged_at": "2026-07-27T05:37:34+00:00",
+  "model": "zai-org/GLM-5.2",
+  "claims": [
+    {
+      "claim": "TPGD (Algorithm 1) is a two-phase first-order gradient-descent method for jointly estimating a shared linear representation and task-specific parameters in multi-task learning (Section 4, Algorithm 1).",
+      "verdict": "verified",
+      "evidence": "The claims-1-2.md page provides structural verification at paper-scale dimensions (d=100, k=10, T=100, N=100) with independent derivative checks confirming the update rules match Equation (1) and Equation (5) to relative errors ~1e-9, and correction-gradient norms showing the regularizer is absent in Phase I and active in Phase II."
+    },
+    {
+      "claim": "Phase I performs K1/2 iterations of unregularized gradient descent as a warm start, and Phase II performs the remaining K1/2 iterations of regularized gradient descent with penalty term ||B^T B − WW^T||_F^2 (Section 4).",
+      "verdict": "verified",
+      "evidence": "The same claims-1-2.md evidence confirms a half/half phase split (sequence I,I,II,II), unregularized Phase I (correction-gradient norms = 0), regularized Phase II (norms > 0), and the penalty ||B^T B - WW^T||_F^2/8 via derivative checks; negative controls (factor-two correction, off-by-one phase) are correctly rejected."
+    },
+    {
+      "claim": "Theorem 5.1 and Corollary 5.3 prove the method attains a near-optimal population estimation error of order Õ(dk/(NT)), improving over existing likelihood-based methods by a factor of k, where d is input dimension, k is representation dimension, T is the number of tasks, and N is per-task sample size (Section 5.1, Theorem 5.1, Corollary 5.3).",
+      "verdict": "inconclusive",
+      "evidence": "The 'source certificate' merely checks that the paper's TeX contains the stated rate expressions—tautological, not experimental validation. The spectral proxy experiment uses a different algorithm (per-task OLS + SVD, not TPGD) and only varies N. The TPGD sweep exponents for T (-0.610 vs expected -1) and d (+0.421 vs expected +1) are significantly off, undermining the claimed dk/(NT) rate."
+    },
+    {
+      "claim": "The algorithm achieves Õ(1) iteration complexity, i.e., convergence in a number of iterations independent of the problem dimensions up to logarithmic factors (Section 5.1).",
+      "verdict": "toy",
+      "evidence": "The symbolic certificate is tautological (checking the theorem formula lacks d,k,T,N dependence). The empirical sweep varies only d (32→1024) showing near-constant first-hit iterations (slope 0.076), but independence from k, T, and N is not empirically tested—only one of four dimensions is swept."
+    },
+    {
+      "claim": "The estimation-error guarantee requires a per-task sample size of N ≳ σ²(d+T)kκ⁴/σ_k²(Σ*) (Section 5.1).",
+      "verdict": "inconclusive",
+      "evidence": "The 24-cell grid is again a tautological source certificate checking the paper's displayed expression. The first-hit calibration experiment yields a slope of 0.813 (expected ~1.0), a poor match. The verify.py C5 function merely checks that subspace error decreases with N, which is trivially true and does not test the specific sample-size threshold."
+    },
+    {
+      "claim": "Theorem 5.4 establishes excess-risk bounds for transferring the learned representation to a new task, decomposing the risk into representation approximation error and task-specific optimization error (Section 5.2, Theorem 5.4).",
+      "verdict": "verified",
+      "evidence": "The claim-6.md page reports a 128-row factorial sweep (N∈{100,200,400,800}, K2∈{1000,2000,4000,8000}, 8 seeds) showing the exact Pythagorean decomposition residual of 1.96e-16, representation-error slope -1.022 (bootstrap [-1.100,-0.942]) vs N, and optimization-error slope -1.091 (bootstrap [-1.306,-0.887]) vs K2, both consistent with the theorem's -1 predictions, with a negative control correctly failing."
+    }
+  ],
+  "overall": "The logbook provides solid structural verification for the algorithm identity claims (1-2) and a reasonable empirical test of the transfer-risk decomposition (6), but the rate and sample-complexity claims (3, 5) rely on tautological source certificates and weak or mismatched empirical evidence, and the iteration-complexity claim (4) is only tested along one dimension.",
+  "quality": "medium",
+  "dataset_id": "ICML-2026-agent-repro/verdicts",
+  "dataset_revision": "3c1d3adaf698181c33f8bc4ae0923aa5c4eac461",
+  "retrieved_at": "2026-07-27",
+  "filter": {
+    "field": "space_id",
+    "equals": "DineshAI/TnquAvyTtL",
+    "matching_rows": 1
+  },
+  "rubric_total": "7/12"
+}

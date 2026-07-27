@@ -29,6 +29,10 @@ orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Materialized
 orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Publication report and tutorial surface" --parent 04205e45-d625-46c2-a43f-20f37fdbf40a
 orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Source-certified theorem identities and dimension sweep" --parent 200405ed-01f3-4edc-b9f4-ac7a31df359f
 orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Evaluator-visible source-certified release candidate" --parent 4ad2637e-302e-471d-8ca4-b348dbe49c8c
+orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Direct multidimensional TPGD and threshold calibration" --parent 24a3c4a3-1d1b-41f6-94b1-2d1a75511b3f
+orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Claim 5 non-circular threshold phase diagram" --parent 48be6288-e750-4eea-be33-dad937f51c86
+orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Claim 5 held-out sufficient-condition validation" --parent 97e2e42a-f56a-424d-9799-242b8cc11f61
+orx create-experiment da3d7c97-a116-4ffd-86d9-865d4b54c0ff --title "Evaluator-visible direct TPGD release candidate" --parent 50a1ceec-4df5-4d94-b92c-c2065a13cdcb
 ```
 
 ## Compute launches
@@ -73,6 +77,17 @@ thresholds or configuration. The release candidate uses:
 orx exp run 24a3c4a3-1d1b-41f6-94b1-2d1a75511b3f --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
 ```
 
+The direct and held-out rounds used:
+
+```text
+orx exp run 48be6288-e750-4eea-be33-dad937f51c86 --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
+orx exp run 97e2e42a-f56a-424d-9799-242b8cc11f61 --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
+orx exp run 50a1ceec-4df5-4d94-b92c-c2065a13cdcb --backend hf --flavor cpu-upgrade --image ghcr.io/astral-sh/uv:python3.12-bookworm-slim --timeout 1h
+```
+
+The middle command exited nonzero because its scientific gate failed; its
+maximum first-success ratio was frozen before the held-out run.
+
 Every run was monitored with:
 
 ```text
@@ -89,9 +104,10 @@ uv run marimo export html notebooks/tpgd_reproduction.py -o /tmp/tpgd_reproducti
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 uv run python scripts/plot_report.py
 uv run python scripts/audit_candidate.py --old-dir /tmp/tpgd_repro_audit/judged_api_45396d
 python scripts/materialize_source_certificates.py <accepted-orx-log
-python scripts/protect_judged_revision.py <downloaded-894e-directory> repro/evidence/startup/judged_space_894e_manifest.sha256
+uv run python scripts/protect_judged_revision.py <downloaded-9b378-directory> repro/evidence/startup/judged_space_9b378_manifest.sha256
+uv run python scripts/materialize_direct_tpgd_evidence.py --claims-3-4-log <accepted-log> --claim-5-log <held-out-log>
 python scripts/build_upload_manifest.py
-python scripts/audit_candidate.py --old-dir <downloaded-894e-directory>
+python scripts/audit_candidate.py --old-dir <downloaded-9b378-directory>
 git diff --check
 ```
 

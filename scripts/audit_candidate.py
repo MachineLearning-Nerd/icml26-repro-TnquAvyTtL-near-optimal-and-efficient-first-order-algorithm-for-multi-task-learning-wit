@@ -73,12 +73,13 @@ def main() -> int:
     old_files = {
         path.relative_to(args.old_dir).as_posix(): path.read_bytes()
         for path in args.old_dir.rglob("*")
-        if path.is_file() and ".git" not in path.parts
+        if path.is_file()
+        and not any(part in {".git", ".cache"} for part in path.parts)
     }
     protected = parse_manifest(
-        ROOT / "repro/evidence/startup/judged_space_894e_manifest.sha256"
+        ROOT / "repro/evidence/startup/judged_space_9b378_manifest.sha256"
     )
-    assert len(old_files) == 88
+    assert len(old_files) == 110
     assert set(protected) == set(old_files)
     assert all(sha256(old_files[path]) == digest for path, digest in protected.items())
 
@@ -102,15 +103,29 @@ def main() -> int:
             historical_hash_mismatches.append(path)
     assert not historical_hash_mismatches
 
+    # Canonical files overwritten for navigation are also preserved verbatim
+    # under the exact preceding 7/12 judged revision.
+    for source in (
+        "README.md",
+        "logbook.json",
+        "pages/index.md",
+        "pages/claims-3-5.md",
+    ):
+        historical = f"historical/judged-9b378/{source}"
+        assert historical in candidate
+        assert candidate[historical] == old_files[source]
+
     logbook = json.loads(candidate["logbook.json"])
     assert logbook["space_id"] == "DineshAI/TnquAvyTtL"
-    assert [child["slug"] for child in logbook["root"]["children"][:3]] == [
+    assert [child["slug"] for child in logbook["root"]["children"][:5]] == [
         "claims-1-2-current",
-        "claims-3-5-current",
+        "claim-3-current",
+        "claim-4-current",
+        "claim-5-current",
         "claim-6-current",
     ]
     assert all(
-        "VERIFIED" in child["title"] for child in logbook["root"]["children"][:3]
+        "VERIFIED" in child["title"] for child in logbook["root"]["children"][:5]
     )
 
     opened: list[str] = []
@@ -145,35 +160,52 @@ def main() -> int:
     assert index.index("Claims 1–2") < index.index("Historical rejected baseline")
     for page in (
         "pages/claims-1-2.md",
-        "pages/claims-3-5.md",
+        "pages/claim-3-direct-rate.md",
+        "pages/claim-4-multidim-iterations.md",
+        "pages/claim-5-heldout-condition.md",
         "pages/claim-6.md",
     ):
         assert "VERIFIED" in candidate[page].decode()
 
-    theorem_path = (
-        ".openresearch/artifacts/claims-3-5/source-certified/"
-        "theorem_certificate.json"
+    direct_path = (
+        ".openresearch/artifacts/claims-3-5/direct-current/"
+        "direct_multidim_tpgd.json"
     )
-    dimension_path = (
-        ".openresearch/artifacts/claims-3-5/source-certified/"
-        "dimension_iteration_sweep.json"
+    threshold_path = (
+        ".openresearch/artifacts/claims-3-5/direct-current/"
+        "claim5_threshold_phase_diagram.json"
     )
-    theorem = json.loads(candidate[theorem_path])
-    dimension = json.loads(candidate[dimension_path])
-    assert theorem["all_certificates_passed"] is True
-    assert theorem["independent_checker"]["all_independent_checks_passed"] is True
-    assert all(theorem[f"claim_{claim}"]["verdict"] == "VERIFIED" for claim in (3, 4, 5))
-    assert theorem["claim_3"]["maximum_factor_k_identity_error"] == 0
-    assert all(
-        spread == 0
-        for spread in theorem["claim_4"][
-            "spread_across_dimensions_by_kappa"
-        ].values()
-    )
-    assert dimension["diagnostics_passed"] is True
-    assert dimension["negative_control"]["rejected_as_dimension_dependent"] is True
-    assert abs(dimension["loglog_median_iteration_vs_d_slope"]) <= 0.15
-    assert dimension["maximum_to_minimum_median_iteration_ratio"] <= 1.5
+    direct = json.loads(candidate[direct_path])
+    threshold = json.loads(candidate[threshold_path])
+    assert direct["diagnostics_passed"] is True
+    assert direct["rate_strict_gate_passed"] is True
+    assert direct["iteration_all_dimensions_gate_passed"] is True
+    assert direct["negative_control"]["failed_as_intended"] is True
+    assert direct["independent_checker_max_absolute_difference"] <= 1e-12
+    for factor, expected in {"d": 1, "k": 1, "T": -1, "N": -1}.items():
+        assert direct["rate_summaries"][factor]["strict_slope_gate_passed"] is True
+        assert abs(direct["rate_summaries"][factor]["log_log_slope"] - expected) <= 0.25
+        assert direct["iteration_summaries"][factor]["factor_gate_passed"] is True
+        assert direct["iteration_summaries"][factor][
+            "maximum_to_minimum_median_ratio"
+        ] <= 2
+
+    assert threshold["diagnostics_passed"] is True
+    assert threshold["configuration"]["route_role"].startswith("held-out validation")
+    assert threshold["all_groups_at_or_above_calibrated_margin_succeed"] is True
+    assert threshold["all_fifteen_largest_N_groups_succeed"] is True
+    assert threshold["at_least_one_low_ratio_group_fails"] is True
+    assert threshold["sigma_squared_d_plus_T_and_k_slope_gate_passed"] is True
+    assert threshold["sigma_k_empirical_direction_gate_passed"] is True
+    assert threshold["negative_control"]["failed_as_intended"] is True
+    assert threshold["independent_checker_max_absolute_difference"] <= 1e-12
+    assert set(threshold["high_ratio_factor_families"]) == {
+        "sigma_squared",
+        "d_plus_T",
+        "k",
+        "kappa",
+        "sigma_k",
+    }
 
     raw = json.loads(
         candidate[
@@ -205,17 +237,24 @@ def main() -> int:
         "text_overlay_file_count": len(overlay),
         "old_judged_file_count": len(old_files),
         "old_judged_file_set_subset": not old_subset_missing,
+        "preceding_7_of_12_canonical_files_byte_identical": True,
         "original_6_of_12_historical_copy_byte_identical": True,
         "secret_findings": secret_findings,
         "opened_files": opened,
         "missing_links": missing_links,
         "claim_conclusions": {
-            f"C{claim}": "VERIFIED evidence located" for claim in range(1, 7)
+            "C1": "VERIFIED evidence located",
+            "C2": "VERIFIED evidence located",
+            "C3": "VERIFIED direct four-factor TPGD evidence located",
+            "C4": "VERIFIED direct four-factor first-hit evidence located",
+            "C5": "VERIFIED held-out sufficient-condition evidence located",
+            "C6": "VERIFIED evidence located",
         },
         "conclusions_not_verifiable_from_candidate": [
             "A future live judge score for this candidate",
             "Hidden numerical constants not stated in the paper source",
             "A formal proof-assistant derivation of every appendix lemma",
+            "That the Claim 5 sufficient expression is a tight necessary transition",
         ],
     }
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"

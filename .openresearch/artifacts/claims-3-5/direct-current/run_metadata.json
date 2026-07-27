@@ -1,0 +1,54 @@
+{
+  "claim_5_calibration": {
+    "git_sha": "5bc1702b3480dffedf676a0e052d0d9ea5a9ac53",
+    "orx_run_id": "200bd469-e6d7-484b-9571-d9503ef82f35",
+    "orx_wall_time": "4m40s",
+    "scientific_gate": "FAILED; used only to freeze C=10"
+  },
+  "claim_5_held_out": {
+    "actual_container_logical_cpus": 64,
+    "backend": "hf",
+    "estimated_cores": 8,
+    "flavor": "cpu-upgrade",
+    "git_sha": "963ddf47b5e0e5ee0f59dbd14552e414b2931f26",
+    "module_runtime_seconds": 30.151809412054718,
+    "numerical_thread_limit": 8,
+    "orx_run_id": "5aaa91cb-c2aa-47f3-b1e4-d9342b475db0",
+    "orx_wall_time": "4m14s",
+    "process_affinity_cpus": 64,
+    "seeds": [
+      8601,
+      8602,
+      8603,
+      8604,
+      8605
+    ]
+  },
+  "claims_3_4": {
+    "actual_container_logical_cpus": 64,
+    "backend": "hf",
+    "estimated_cores": 8,
+    "flavor": "cpu-upgrade",
+    "git_sha": "1aa33107943e838d5d09f80baa614383c5b828cc",
+    "module_runtime_seconds": 8.897808745969087,
+    "numerical_thread_limit": 8,
+    "orx_run_id": "44fb4f8f-3ee0-4739-bdfd-46f6ab195f4f",
+    "orx_wall_time": "3m59s",
+    "process_affinity_cpus": 64,
+    "seeds": [
+      8301,
+      8302,
+      8303,
+      8304,
+      8305,
+      8306
+    ]
+  },
+  "cost": "The HF interface exposed no monetary cost; none is invented.",
+  "environment": [
+    ".python-version",
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "fixed_command": "uv run python repro/src/verify.py"
+}

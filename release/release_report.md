@@ -1,117 +1,110 @@
-- Previous live judged score: `6/12`
-- Conservative projected score range after the proposed change: `9–12/12`
+- Previous live judged score: `7/12`
+- Conservative projected score range after the proposed change: `8–12/12`
 - Best-supported possible new score, forecast rather than judge result: `12/12`
 
 # Pre-publication release report
 
-The current verdict dataset row for judged revision
-`894e3c5848337fefe805dbcf73a9f27f5b33372b` contains no explicit total-score
-field. It marks Claims 1, 2, and 6 `verified` and Claims 3–5 `inconclusive`,
-which would imply 9/12 under the two/one-point rubric. The last explicit total
-record remains 6/12 at the original revision. Neither the implied current
-total nor the forecast below is represented as a new judge result.
+The exact live verdict is for Space
+`DineshAI/TnquAvyTtL@9b3781d6a422415a0f474ca7575757c7a2c4d27a`,
+judged 2026-07-27 05:37 UTC. It awards Claims 1 and 2 two points each,
+Claim 4 one toy point, Claim 6 two points, and Claims 3 and 5 zero points.
+The campaign began at 6/12; the current release baseline is therefore 7/12.
 
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|
-| 1 | 2 | 2 | HIGH | VERIFIED | Faithful joint \(B,W\) updates at paper dimensions, independent finite differences, and two failing controls; latest judge already verified. |
-| 2 | 2 | 2 | HIGH | VERIFIED | Exact half/half phase trace and Equation (5) penalty gradient; factor-two and off-by-one mutations rejected; latest judge already verified. |
-| 3 | 1 | 2 | HIGH | VERIFIED | Hash-pinned full \(dk/(NT)\) exponent vector and exact factor-\(k\) quotient across 24 cells, independently reconstructed; evaluator interpretation of theorem reporting is the remaining risk. |
-| 4 | 1 | 2 | HIGH | VERIFIED | Source-derived \(K_1\) dependence including the \(K_1/2\) factor, independent checker, direct six-dimension TPGD sweep, and a discriminating \(1/d\)-step control. |
-| 5 | 1 | 2 | HIGH | VERIFIED | Exact displayed sample expression reconstructed over 24 cells with zero error; the \(\kappa^2\) mutation is rejected. |
-| 6 | 2 | 2 | HIGH | VERIFIED | Exact population-risk decomposition, analytic target assumption, two separately varied resource slopes, and a projection control; latest judge already verified. |
+| 1 | 2 | 2 | HIGH | VERIFIED | Faithful joint \(B,W\) updates, finite-difference derivative checks, and two failing controls; live judge accepted. |
+| 2 | 2 | 2 | HIGH | VERIFIED | Exact half/half phase trace and Equation (5) balance penalty; factor-two and off-by-one mutations rejected; live judge accepted. |
+| 3 | 0 | 2 | MEDIUM | VERIFIED | Direct TPGD slopes `+0.971,+0.978,−0.958,−1.003` for \(d,k,T,N\), tight bootstrap intervals, assumptions, checker, and task-permutation control. Risk: finite exact-RIP scope does not prove the universal theorem. |
+| 4 | 1 | 2 | MEDIUM | VERIFIED | Direct first-hit distributions across all \(d,k,T,N\): every one of 96 runs hits; slopes lie in `[−0.002,+0.091]`. Risk: finite horizons cannot prove all dimension sequences. |
+| 5 | 0 | 2 | MEDIUM | VERIFIED | Independent N grid, immutable calibration, disjoint held-out seeds, 27/27 high-margin and 15/15 largest-N groups successful across all factor families. Risk: hidden constant is empirical and the condition is not shown necessary or tight. |
+| 6 | 2 | 2 | HIGH | VERIFIED | Exact population-risk decomposition, separately varied resource slopes, independent checker, and projection control; live judge accepted. |
 
-Current explicit total score: **6/12**. Latest claim-level verdicts imply
-**9/12**, but the record does not provide that total. Conservative projected
-total after publication: **9–12/12**. Best-supported possible total:
-**12/12**. These are forecasts; only the live judge can change the score.
+Current total score: **7/12**. Conservative projected total score after
+publication: **8–12/12**. Best-supported possible total score: **12/12**.
+These are forecasts; only the live judge can change the score.
 
-Claims 3–5 changed materially since the previous judge result. They no longer
-depend on finite fitted slopes as their primary evidence: the exact source
-identities and quantifiers are executable, independent, and visible from the
-canonical page. No claim remains `BLOCKED`.
+Claims 3, 4, and 5 changed materially. Claim 3 no longer relies on a spectral
+proxy or source identity; Claim 4 varies all four dimensions instead of only
+\(d\); Claim 5 now performs calibrated then held-out direct TPGD validation.
+No claim is marked `BLOCKED`. Claims 3–5 retain `MEDIUM` confidence because
+their finite exact-RIP scope leaves theorem-level generalization risk.
 
 ## Informational upload summary
 
 | Claim | Status | Expected points | Confidence | Expected evaluator status |
 |---|---|---:|---|---|
-| 1 | VERIFIED | 2 | HIGH | Direct current verifier located |
-| 2 | VERIFIED | 2 | HIGH | Direct current verifier located |
-| 3 | VERIFIED | 2 | HIGH | Source certificate and full rate quotient located |
-| 4 | VERIFIED | 2 | HIGH | Symbolic derivation and direct dimension sweep located |
-| 5 | VERIFIED | 2 | HIGH | Exact sample-expression certificate located |
-| 6 | VERIFIED | 2 | HIGH | Exact decomposition and independent slopes located |
+| 1 | VERIFIED | 2 | HIGH | Previously accepted direct verifier remains current |
+| 2 | VERIFIED | 2 | HIGH | Previously accepted direct verifier remains current |
+| 3 | VERIFIED | 2 | MEDIUM | Direct four-factor TPGD slope verifier located |
+| 4 | VERIFIED | 2 | MEDIUM | Direct four-factor first-hit verifier located |
+| 5 | VERIFIED | 2 | MEDIUM | Held-out sufficient-condition verifier located |
+| 6 | VERIFIED | 2 | HIGH | Previously accepted decomposition verifier remains current |
 
-Conservative projected total: **9–12/12**. Best-supported possible total:
-**12/12**. Remaining risk is judge interpretation of source-certified theorem
-reporting, not a missing evaluator-visible artifact.
-
-## What the 12/12 comparison established
-
-The exact judged comparison Space was
-`ProCreations/repro-near-optimal-and-efficient-first-order-algorithm-for-multi-task-learning-with-shared-linea@9be4bfc1291af3f8c9363b398eb3ddecf870f977`.
-Its decisive Claims 3–5 evidence was a set of deterministic formula grids,
-with exact source statements and results inline on canonical pages. It did
-not rely on a larger training campaign.
-
-This release adopts that evidence architecture and strengthens it with
-hash-pinned verbatim TeX anchors, a separately implemented checker, a direct
-five-seed TPGD dimension sweep, and an implementation of the factor two
-required by the theorem’s \(K_1/2\) exponent. The comparison audit is
-`repro/evidence/startup/competitor_12_of_12_audit.json`.
+Conservative projected total: **8–12/12**. Best-supported possible score:
+**12/12**. Remaining risk is evaluator interpretation of finite exact-RIP
+evidence for asymptotic theorems, especially Claim 5’s hidden constant.
 
 ## Experiment tree and winning evidence
 
-The stacked tree descends from the immutable judged baseline through faithful
-Algorithm 1 structure, paper-scale calibration, ordinary and exact-RIP
-factorial sweeps, transfer decomposition, primary-source comparison,
-cumulative evidence, publication surface, and finally:
+The stacked tree descends from the immutable 7/12 release candidate through:
 
-- `orx/source-certified-theorem-identities-and-dimensio`
-- experiment `4ad2637e-302e-471d-8ca4-b348dbe49c8c`
-- Git SHA `eeb5b4b4fde7dcbda75d00158288ae122fa79431`
-- accepted HF run `28927bbd-6573-4dc2-ad4c-f76d34fcccfe`
+1. `orx/direct-multidimensional-tpgd-and-threshold-calib` —
+   Git `1aa33107943e838d5d09f80baa614383c5b828cc`, accepted run
+   `44fb4f8f-3ee0-4739-bdfd-46f6ab195f4f`;
+2. `orx/claim-5-non-circular-threshold-phase-diagram` —
+   Git `5bc1702b3480dffedf676a0e052d0d9ea5a9ac53`, failed scientific calibration
+   run `200bd469-e6d7-484b-9571-d9503ef82f35`; and
+3. `orx/claim-5-held-out-sufficient-condition-validation` —
+   winning scientific Git `963ddf47b5e0e5ee0f59dbd14552e414b2931f26`, accepted held-out run
+   `5aaa91cb-c2aa-47f3-b1e4-d9342b475db0`.
 
-The unchanged command is `uv run python repro/src/verify.py`. The accepted run
-reports `theorem_certificate_status=PASS`,
-`dimension_iteration_status=PASS`, and `historical_baseline_status=PASS`.
+The failed branch is retained because it explains how \(C=10\) was frozen
+before the held-out seed set. It is not presented as accepted evidence.
 
 ## Evidence and compute
 
-The source archive SHA-256 is
-`1f9b28d527bc30de0dd327a8ad86466e1ffce415b04a6a78158ed2ca02c9556f`.
-Current raw evidence is under
-`.openresearch/artifacts/claims-3-5/source-certified/`; contracts, source
-audit, methods, limitations, checker output, controls, seeds, and raw
-JSON/CSV are linked from the canonical Space page.
+The fixed command throughout is:
 
-Before the accepted run, one CPU core was estimated but runtime was uncertain,
-so the campaign policy required HF `cpu-upgrade`. The container exposed 64
-logical CPUs, numerical libraries were capped at 8, ORX wall time was 5m28s,
-verifier runtime was 298.694s, and the new dimension sweep itself took 5.185s.
-The HF interface exposed no monetary cost, so none is invented.
+```text
+uv run python repro/src/verify.py
+```
+
+The environment is pinned by `.python-version`, `pyproject.toml`, and
+`uv.lock`. Both accepted runs estimated eight cores and therefore used HF
+`cpu-upgrade`; each container exposed 64 logical CPUs with process affinity
+64 and a numerical thread cap of 8. Claims 3–4 took 3m59s ORX wall time
+(8.898s for the new module); Claim 5 held-out validation took 4m14s
+(30.152s for the new module). The HF interface exposed no monetary cost, so
+none is invented.
+
+Current evidence is under
+`.openresearch/artifacts/claims-3-5/direct-current/`: contracts, source audit,
+method, limitations, 792 raw seed-level rows, two full JSON outputs,
+independent checker, negative controls, seeds, SHAs, CPU, and runtime.
 
 ## Release gates
 
-- All six claim verdicts are exactly `VERIFIED`.
-- The cumulative verifier and every historical regression pass.
-- Claims 3–5 explicitly answer the latest judge criticisms.
-- Raw data regenerates from the unchanged fixed command.
+- Every claim has an explicit `VERIFIED` verdict and calibrated confidence.
+- Previously accepted Claims 1, 2, and 6 remain in the cumulative verifier.
+- Every criticism in the exact 7/12 verdict is answered on a current page.
+- Raw results regenerate from the unchanged fixed command.
 - All registered negative controls fail for their intended reasons.
-- Finite TPGD evidence is identified as scoped corroboration, not universal proof.
-- The exact 88-file judged Space revision is the candidate base and remains a subset.
+- Finite evidence is labeled finite; no toy result is called full-scale proof.
+- The exact 110-file 7/12 judged tree is the candidate base and remains a subset.
 - The original 6/12 historical text snapshot remains byte-identical.
-- `logbook.json` validates and current pages appear first.
-- The exact text-only allowlist contains 95 paths with a SHA-256 manifest.
+- The preceding 7/12 README, index, logbook, and rejected page are preserved byte-identically.
+- `logbook.json` validates and direct current pages appear before historical pages.
+- The exact text-only upload allowlist contains 121 paths with a SHA-256 manifest.
 - Secret scanning reports no findings.
-- Blind traversal from `README.md` and `pages/index.md` reaches every claim’s code, raw data, checker, and control with no broken links.
-- The blind review is recorded and repeated after the final candidate edits.
+- Blind traversal from `README.md` and `pages/index.md` reaches code, inline data, raw output, checkers, controls, and limitations with no broken links.
+- The blind review is recorded and will be repeated after the final cumulative run.
 
 ## Exact publication action
 
-After the final cumulative HF run passes, upload only the 95 allowlisted text
+After the final cumulative HF run passes, upload only the 121 allowlisted text
 paths in `release/upload_allowlist.tsv` to the existing Space
-`DineshAI/TnquAvyTtL` with the Hugging Face commit API. No repository or Space
-will be created. Then download the returned revision, verify every uploaded
-hash and canonical traversal, mirror the reader-facing text to GitHub `main`,
-confirm the remote SHA with `git ls-remote`, and mark the paper awaiting the
-live judge.
+`DineshAI/TnquAvyTtL` using the Hugging Face commit API. Do not create a new
+Space and do not delete files. Then download the returned revision, verify
+every uploaded hash and canonical traversal, mirror reader-facing artifacts
+to GitHub `main`, confirm the remote SHA with `git ls-remote`, and mark the
+paper awaiting the live judge.

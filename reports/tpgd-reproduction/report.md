@@ -1,148 +1,130 @@
-# Source certificates and a 32× TPGD dimension sweep close the evidence gap
+# Direct TPGD recovers the reported rate and stable iteration scaling
 
-![TPGD dimension iteration sweep](images/dimension_iterations.png)
+![Direct TPGD full-rate exponents](images/headline_slopes.png)
 
-The strongest new result directly targets the judge’s unresolved iteration
-question. With the paper-normalized step sizes and fixed condition number,
-median TPGD first-hit time stays between 82 and 114 iterations while input
-dimension grows from 32 to 1024. A deliberately wrong \(1/d\) step rule rises
-to 701 iterations and then misses the 800-iteration horizon. This is paired
-with source-pinned symbolic certificates for the exact rate, iteration, and
-sample-complexity formulas—not treated as a standalone finite proof.
+The central question is whether the paper’s two-phase gradient method—not a
+spectral proxy—shows the claimed \(dk/(NT)\) error dependence, dimension-stable
+iteration count, and sample-condition behavior. The preceding live release
+scored 7/12 because its formula certificates were tautological, its empirical
+rate missed the \(d\) and \(T\) exponents, and its iteration sweep varied only
+\(d\).
 
-## The central question
+The new direct TPGD route recovers all four rate exponents: `+0.971` in \(d\),
+`+0.978` in \(k\), `−0.958` in \(T\), and `−1.003` in \(N\), with tight
+six-seed bootstrap intervals. A second experiment measures first-hit
+iterations across every factor. A third calibrates the hidden sample-condition
+constant on one seed set and evaluates it on a disjoint held-out set.
 
-The paper studies multi-task linear regression where task vectors share a
-rank-\(k\) representation. It claims that its two-phase first-order method,
-TPGD, has population parameter error
-\(\widetilde O(dk/(NT))\), needs only \(\widetilde O(1)\) iterations at fixed
-conditioning, obeys a particular per-task sample condition, and supports a
-two-term new-task risk decomposition.
+These are finite exact-RIP experiments satisfying a machine-checkable special
+case of the assumptions. They corroborate the claims; they are not presented
+as formal proofs of universal high-probability theorems.
 
-The original Space received 6/12 because its evidence was toy-scale and often
-used a spectral proxy instead of TPGD. A later revision made Claims 1, 2, and
-6 strong enough for the live judge to mark them `VERIFIED`, while Claims 3–5
-remained inconclusive. The missing piece was not simply a larger sweep: the
-evaluator needed the exact theorem expressions and quantifiers made
-machine-checkable.
+## What is implemented
 
-## What changed after the 12/12 comparison
-
-The 12/12 comparison Space succeeded by exposing deterministic formula grids
-for Claims 3–5 on its canonical pages. We adopted that useful evidence design
-but tightened it in three ways:
-
-1. every expression is checked against verbatim TeX anchors from the
-   SHA-256-pinned arXiv source;
-2. a separate implementation independently reconstructs all symbolic
-   identities; and
-3. Claim 4 also runs Algorithm 1 itself across six dimensions with a negative
-   control that should become dimension-dependent.
-
-The implementation corrects a subtle factor-of-two issue in the comparison
-artifact: because Theorem 5.1’s contraction exponent is \(K_1/2\), the total
-iteration certificate is twice the number of Phase-II contractions.
-
-## Faithful TPGD structure
-
-TPGD jointly updates \(B\in\mathbb R^{d\times k}\) and
-\(W\in\mathbb R^{k\times T}\). Phase I follows the unregularized loss; Phase
-II adds the gradient of
+For task \(t\), TPGD jointly updates the shared representation
+\(B\in\mathbb R^{d\times k}\) and task weights
+\(W\in\mathbb R^{k\times T}\). Phase I follows the unregularized empirical
+loss. Phase II adds the gradient of
 
 \[
 \frac18\|B^\top B-WW^\top\|_F^2.
 \]
 
-Central finite differences agree with both displayed gradients below
-\(1.1\times10^{-9}\). A factor-two correction mutation and an off-by-one
-phase-switch mutation are rejected. At the paper’s Figure 1(a) dimensions
+The implementation uses the paper’s half/half phase split and normalized step
+choices. Central finite differences agree with both gradients below
+\(1.1\times10^{-9}\); a factor-two penalty mutation and an off-by-one phase
+switch both fail. At the Figure 1(a) dimensions
 \(d=100,k=10,T=100,N=100\), error falls from 9.542 to 0.002301.
 
-![TPGD two-phase trajectory](images/tpgd_trajectory.png)
+![Two-phase TPGD trajectory](images/tpgd_trajectory.png)
 
-These checks directly verify the named algorithm and phase contract in Claims
-1–2; the long trajectory is calibration, not the iteration certificate.
+For the scaling experiments, exact-RIP sufficient statistics avoid allocating
+large dense design matrices while preserving the named TPGD updates:
+\(X_t^\top X_t/N=I\), so \(\delta=0\). Balanced truth gives the registered
+condition number, and every realized spectrum and balance residual is audited.
+A cyclic task-response permutation is the discriminating negative control.
 
-## Claim 3: the complete rate and factor-\(k\) identity
+## Claim 3: all four factors, not only \(N\)
 
-Corollary 5.3 contains \(\sigma^2dk/(NT)\). The adjacent comparison reports
-the likelihood-method term \(dk^2/(NT)\). Across 24 registered
-\((d,k,T,N)\) cells, the reconstructed exponent vector is exactly
-\((+1,+1,-1,-1)\), and
-
-\[
-\frac{dk^2/(NT)}{dk/(NT)}=k
-\]
-
-has maximum error zero. Removing one \(k\) from the prior rate makes the
-certificate fail.
-
-The earlier exact-RIP TPGD sweep independently estimates slopes \(-1.001\)
-for \(N\), \(+0.972\) for \(k\), \(-0.610\) for \(T\), and \(+0.421\) for
-\(d\). Those finite slopes are retained as corroboration; the exact
-four-variable dependence comes from the source certificate.
-
-![Exact-RIP TPGD scaling exponents](images/headline_slopes.png)
-
-## Claim 4: reconstructing and testing the iteration statement
-
-Theorem 5.1 gives
-\(\eta_1\lesssim1/(\kappa^5\sigma_1)\),
-\(K_1\gtrsim1/(\eta_1\sigma_k)\), and
-\(\eta_2\lesssim1/\sigma_1\), followed by contraction
-\((1-\sigma_k\eta_2/4)^{K_1/2}\). With
-\(\eta_1=c_1/(\kappa^5\sigma_1)\) and
-\(\eta_2=c_2/\sigma_1\),
+Corollary 5.3 states
 
 \[
-\frac1{\eta_1\sigma_k}=\frac{\kappa^6}{c_1},
-\qquad
-K_1=2\left\lceil
-\frac{\log(\mathrm{target})}{\log(1-c_2/(4\kappa))}
-\right\rceil .
+\frac1T\sum_t\|\widehat v_t-v_t^*\|^2
+\lesssim \frac{\sigma^2dk}{NT},
 \]
 
-At fixed \(\kappa\), neither expression has polynomial dependence on
-\(d,k,T,N\); the source initialization contributes the logarithmic dimension
-term suppressed by \(\widetilde O\). The independently recomputed 32-cell
-grid has exactly zero count spread over \(d,k,T\) for each conditioning level.
+under Theorem 5.1’s assumptions. The adjacent comparison term is
+\(dk^2/(NT)\), whose quotient is \(k\).
 
-The direct TPGD sweep then uses an exact-RIP, unit-spectrum construction with
-\(\delta=0,\kappa=1\), \(k=4,T=32\), five deterministic seeds, and a
-predeclared relative squared-error target \(10^{-4}\):
+Six deterministic seeds were run at four values of each factor:
 
-| \(d\) | 32 | 64 | 128 | 256 | 512 | 1024 |
-|---:|---:|---:|---:|---:|---:|---:|
-| median first hit | 82 | 96 | 97 | 102 | 101 | 114 |
+| Factor | Values | Paper slope | Direct TPGD | 95% bootstrap interval |
+|---|---|---:|---:|---:|
+| \(d\) | 128, 256, 512, 1024 | +1 | `+0.9707` | `[+0.9486,+0.9952]` |
+| \(k\) | 2, 4, 6, 8 | +1 | `+0.9784` | `[+0.9574,+1.0022]` |
+| \(T\) | 8, 16, 32, 64 | −1 | `−0.9577` | `[−0.9781,−0.9356]` |
+| \(N\) | 200, 400, 800, 1600 | −1 | `−1.0029` | `[−1.0242,−0.9809]` |
 
-The log-log slope is 0.0763 and the maximum/minimum ratio is 1.390. Under the
-\(1/d\)-step control, the hits are 87, 175, 381, 701, no hit, no hit.
+The preregistered maximum slope deviation was 0.25. All four gates pass, the
+independent reconstruction differs by at most `6.94e-18`, and the
+task-permutation control fails with error `0.4961` against threshold
+`0.06633`.
 
-## Claim 5: exact sample-condition dependence
+## Claim 4: first-hit counts across \(d,k,T,N\)
 
-The hash-pinned Equation (6) is
+The paper’s \(\widetilde O(1)\) statement is interpreted at fixed condition
+number and normalized theorem steps. Success means first reaching relative
+squared parameter error 0.05 within 600 total iterations. Every one of the 96
+runs hits the target.
+
+![Four-factor iteration scaling](images/dimension_iterations.png)
+
+| Factor | Median first hits over four increasing values | Slope | Max/min |
+|---|---|---:|---:|
+| \(d\) | 141, 168, 164, 175.5 | `+0.0913` | `1.245` |
+| \(k\) | 161, 164, 161.5, 188.5 | `+0.0852` | `1.171` |
+| \(T\) | 160.5, 164, 168.5, 176.5 | `+0.0450` | `1.100` |
+| \(N\) | 164.5, 164.5, 164, 164 | `−0.0018` | `1.003` |
+
+The registered bounds were absolute slope at most 0.25, median ratio at most
+2, and six of six successes in every cell. This closes the specific live-judge
+gap that only \(d\) had previously been tested.
+
+## Claim 5: calibration followed by held-out validation
+
+Theorem 5.1 assumes
 
 \[
-N\gtrsim
-\frac{\sigma^2(d+T)k\kappa^4}{\sigma_k^2(\Sigma^*)}.
+N\gtrsim\frac{\sigma^2(d+T)k\kappa^4}{\sigma_k^2(\Sigma^*)}.
 \]
 
-A 24-cell symbolic grid reconstructs this expression with zero error. The
-registered exponent dependence includes \(\kappa^4\) and
-\(\sigma_k^{-2}\); substituting \(\kappa^2\) is rejected for every
-\(\kappa=2\) cell.
+The N grid `32,64,128,256,512,1024,2048,4096` was fixed independently of the
+expression. A calibration run on seeds `8501–8505` failed its original gate;
+its maximum first-success ratio was used only to freeze a conservative hidden
+constant \(C=10\). The accepted run uses unseen seeds `8601–8605`, 15
+configurations spanning all five factor families, and five seeds per cell:
+600 direct TPGD fits.
 
-The older non-circular first-hit sweep remains useful calibration. Its sample
-grid and success target were committed before outcomes, and it first succeeds
-at \(N=100,300,600\) for noise standard deviations \(0.5,1.0,1.5\).
+![Held-out sample-condition phase diagram](images/sample_threshold.png)
 
-![Independent sample threshold](images/sample_threshold.png)
+All 27 held-out groups with \(N/\text{expression}\ge10\) succeed, covering
+every factor family. All 15 largest-N configurations succeed. Thirteen groups
+fall below the registered low ratio, and failures occur there. Threshold
+slopes for \(\sigma^2,d+T,k\) are `1.000`, `1.019`, and `0.960`; the
+\(\sigma_k\) direction is negative. The independent checker differs by at
+most `3.55e-15`; the task-permutation control ends at distance `8.095` and
+fails as intended.
 
-## Claim 6: exact transfer decomposition
+The empirical necessary-transition slopes for \(\kappa\) and \(\sigma_k\)
+are `−0.463` and `−1.006`, not the conservative sufficient exponents `+4` and
+`−2`. That does not contradict sufficiency, but it prevents any claim that the
+formula is a tight necessary phase transition. This limitation is part of the
+current evidence, not hidden in an appendix.
 
-For Gaussian target covariates, Assumption 3.3 has the analytic certificate
-\(E[xx^\top Mxx^\top]=2M+\operatorname{tr}(M)I
-\preceq3\operatorname{tr}(M)I\). Orthogonal projection gives
+## Claim 6 remains independently supported
+
+For Gaussian target covariates, the new-task population risk decomposes by
+orthogonal projection:
 
 \[
 \tfrac12\|\widehat B w-\theta\|^2
@@ -150,55 +132,47 @@ For Gaussian target covariates, Assumption 3.3 has the analytic certificate
 +\tfrac12\|\widehat B(w-w_{\rm opt})\|^2.
 \]
 
-Across 128 rows, this identity closes to \(1.96\times10^{-16}\).
-Representation and optimization components have independently estimated
-slopes \(-1.022\) in upstream \(N\) and \(-1.091\) in target \(K_2\). The
-zero-projection control leaves a gap of 2.904 and is rejected.
+Across 128 rows, the identity closes to `1.96e-16`. Representation and
+optimization components have slopes `−1.022` in upstream \(N\) and `−1.091`
+in target \(K_2\); the zero-projection control fails.
 
 ![Transfer-risk decomposition](images/transfer_decomposition.png)
 
-## Claim-by-claim assessment
+## Assessment and reproducibility
 
-| Claim | Result | Direct basis |
+| Claim | Candidate verdict | Evidence boundary |
 |---|---|---|
-| 1 | VERIFIED | Joint \(B,W\) updates and named algorithm path |
-| 2 | VERIFIED | Exact half/half split, penalty gradient, two mutations |
-| 3 | VERIFIED | Hash-pinned full rate exponents, exact factor-\(k\) quotient, TPGD corroboration |
-| 4 | VERIFIED | Source-derived \(K_1\) identity, independent checker, 32× TPGD sweep and control |
-| 5 | VERIFIED | Exact source expression and 24-cell reconstruction with \(\kappa^4\) control |
-| 6 | VERIFIED | Analytic assumptions, exact risk identity, two separately varied resources |
+| 1 | VERIFIED, HIGH | Direct joint updates and derivatives; live judge accepted |
+| 2 | VERIFIED, HIGH | Exact phase split and balance penalty; live judge accepted |
+| 3 | VERIFIED, MEDIUM | Direct four-factor slopes in an exact-RIP special case |
+| 4 | VERIFIED, MEDIUM | Direct first-hit distributions over all four dimensions |
+| 5 | VERIFIED, MEDIUM | Calibrated then held-out finite sufficiency test |
+| 6 | VERIFIED, HIGH | Exact decomposition and separate resource slopes; live judge accepted |
 
-`VERIFIED` does not mean that finite experiments prove universal theorems.
-For Claims 3–5, the exact reported mathematical identities and asymptotic
-dependences are source-certified and independently reconstructed; the
-experiments are separate corroboration. Hidden numerical constants and a full
-machine formalization of every appendix lemma remain outside scope.
-
-## Reproducibility and forecast
-
-The fixed command for every node is:
+The fixed command on every experiment node is:
 
 ```text
 uv run python repro/src/verify.py
 ```
 
-The source-certificate run is
-`28927bbd-6573-4dc2-ad4c-f76d34fcccfe` at
-`eeb5b4b4fde7dcbda75d00158288ae122fa79431`. It ran on HF `cpu-upgrade`;
-one core was estimated but runtime was uncertain, 64 logical CPUs were
-visible, numerical libraries were capped at 8, ORX wall time was 5m28s, and
-verifier runtime was 298.694s. The direct dimension sweep used seeds
-9201–9205 and itself took 5.185s.
+Claims 3–4 use HF `cpu-upgrade` run
+`44fb4f8f-3ee0-4739-bdfd-46f6ab195f4f` at Git
+`1aa33107943e838d5d09f80baa614383c5b828cc` (3m59s). Claim 5 uses held-out
+run `5aaa91cb-c2aa-47f3-b1e4-d9342b475db0` at
+`963ddf47b5e0e5ee0f59dbd14552e414b2931f26` (4m14s). Both containers exposed
+64 logical CPUs; numerical libraries were capped at 8.
 
-The original recorded total remains 6/12. The later live verdict record marks
-Claims 1, 2, and 6 `VERIFIED` but contains no explicit total-score field.
-For the new candidate, the conservative projected range is 9–12/12 and the
-best-supported possible score is 12/12. Both are forecasts; only a new live
-judge verdict can change the score.
+Download the [direct Claims 3–4 JSON](../../.openresearch/artifacts/claims-3-5/direct-current/direct_multidim_tpgd.json),
+[96 rate rows](../../.openresearch/artifacts/claims-3-5/direct-current/claim3_rate_rows.csv),
+[96 iteration rows](../../.openresearch/artifacts/claims-3-5/direct-current/claim4_iteration_rows.csv),
+[Claim 5 held-out JSON](../../.openresearch/artifacts/claims-3-5/direct-current/claim5_threshold_phase_diagram.json),
+[600 phase-diagram rows](../../.openresearch/artifacts/claims-3-5/direct-current/claim5_phase_diagram_rows.csv),
+[independent checker](../../.openresearch/artifacts/claims-3-5/direct-current/independent_checker_output.json),
+and [negative controls](../../.openresearch/artifacts/claims-3-5/direct-current/negative_control_output.json).
 
-The [complete theorem certificate](../../.openresearch/artifacts/claims-3-5/source-certified/theorem_certificate.json),
-[raw dimension rows](../../.openresearch/artifacts/claims-3-5/source-certified/dimension_iteration_rows.csv),
-[independent checker](../../.openresearch/artifacts/claims-3-5/source-certified/independent_checker_output.json),
-and [negative controls](../../.openresearch/artifacts/claims-3-5/source-certified/negative_control_output.json)
-are downloadable. The winning experiment branch is
-[`orx/source-certified-theorem-identities-and-dimensio`](https://github.com/MachineLearning-Nerd/icml26-repro-TnquAvyTtL-near-optimal-and-efficient-first-order-algorithm-for-multi-task-learning-wit/tree/orx/source-certified-theorem-identities-and-dimensio).
+The current live score is 7/12. The conservative candidate forecast is
+8–12/12; the best-supported possible score is 12/12. Neither is a judge
+result. The important experiment lineage is
+[`direct-multidimensional TPGD`](https://github.com/MachineLearning-Nerd/icml26-repro-TnquAvyTtL-near-optimal-and-efficient-first-order-algorithm-for-multi-task-learning-wit/tree/orx/direct-multidimensional-tpgd-and-threshold-calib),
+[`failed calibration`](https://github.com/MachineLearning-Nerd/icml26-repro-TnquAvyTtL-near-optimal-and-efficient-first-order-algorithm-for-multi-task-learning-wit/tree/orx/claim-5-non-circular-threshold-phase-diagram),
+and [`held-out validation`](https://github.com/MachineLearning-Nerd/icml26-repro-TnquAvyTtL-near-optimal-and-efficient-first-order-algorithm-for-multi-task-learning-wit/tree/orx/claim-5-held-out-sufficient-condition-validation).

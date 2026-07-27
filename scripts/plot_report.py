@@ -20,8 +20,13 @@ RAW = (
 )
 DIMENSION_RAW = (
     ROOT
-    / ".openresearch/artifacts/claims-3-5/source-certified"
-    / "dimension_iteration_sweep.json"
+    / ".openresearch/artifacts/claims-3-5/direct-current"
+    / "direct_multidim_tpgd.json"
+)
+THRESHOLD_RAW = (
+    ROOT
+    / ".openresearch/artifacts/claims-3-5/direct-current"
+    / "claim5_threshold_phase_diagram.json"
 )
 OUT = ROOT / "reports/tpgd-reproduction/images"
 COLORS = {
@@ -49,10 +54,10 @@ def _style() -> None:
 
 
 def headline_slopes(data: dict) -> None:
-    summaries = data["current_research"]["exact_rip"]["factorial_summaries"]
-    names = ["N", "k", "T", "d"]
-    labels = ["samples N", "rank k", "tasks T", "dimension d"]
-    target = np.asarray([-1.0, 1.0, -1.0, 1.0])
+    summaries = data["rate_summaries"]
+    names = ["d", "k", "T", "N"]
+    labels = ["dimension d", "rank k", "tasks T", "samples N"]
+    target = np.asarray([1.0, 1.0, -1.0, -1.0])
     observed = np.asarray([summaries[name]["log_log_slope"] for name in names])
     intervals = np.asarray(
         [summaries[name]["bootstrap_95pct_slope_interval"] for name in names]
@@ -78,7 +83,7 @@ def headline_slopes(data: dict) -> None:
     ax.set_xticks(x, labels)
     ax.set_ylabel("log–log error exponent")
     ax.set_ylim(-1.45, 1.45)
-    ax.set_title("Exact-RIP TPGD: two exponents align; two only match direction")
+    ax.set_title("Direct TPGD recovers every exponent in the full dk/(NT) rate")
     ax.legend(frameon=False, ncol=2, loc="upper center")
     ax.grid(axis="y", alpha=0.22)
     fig.tight_layout()
@@ -109,20 +114,40 @@ def tpgd_trajectory(data: dict) -> None:
 
 
 def sample_threshold(data: dict) -> None:
-    rows = data["current_research"]["exact_rip"]["threshold_summary"]
-    sigma_sq = np.asarray([row["sigma_squared"] for row in rows])
-    observed = np.asarray([row["first_grid_N_with_at_least_four_successes"] for row in rows])
-    expression = np.asarray([row["theorem_sample_expression_without_hidden_constant"] for row in rows])
+    grouped = {}
+    for row in data["rows"]:
+        key = (row["factor"], row["factor_value"], row["N"])
+        grouped.setdefault(key, []).append(row)
+    ratios = []
+    success_fractions = []
+    for rows in grouped.values():
+        ratios.append(rows[0]["N_over_sample_expression"])
+        success_fractions.append(np.mean([row["success"] for row in rows]))
+    ratios = np.asarray(ratios)
+    success_fractions = np.asarray(success_fractions)
     fig, ax = plt.subplots(figsize=(8.4, 4.6))
-    ax.plot(sigma_sq, observed, "o-", linewidth=2.2, markersize=7, color=COLORS["orange"], label="independent first-hit N")
-    ax.plot(sigma_sq, expression, "D--", linewidth=1.8, markersize=6, color=COLORS["navy"], label="displayed expression, unit constant")
-    for x, y in zip(sigma_sq, observed):
-        ax.annotate(f"N={int(y)}", (x, y), xytext=(0, 9), textcoords="offset points", ha="center")
-    ax.set_xlabel(r"noise variance $\sigma^2$")
-    ax.set_ylabel("per-task sample count N")
-    ax.set_title("Non-circular sample-threshold calibration (5 seeds per grid cell)")
+    scatter = ax.scatter(
+        ratios,
+        success_fractions,
+        c=success_fractions,
+        cmap="RdYlGn",
+        vmin=0,
+        vmax=1,
+        s=42,
+        alpha=0.85,
+        edgecolor="white",
+        linewidth=0.4,
+    )
+    ax.axvline(0.25, color=COLORS["red"], linestyle=":", label="registered low ratio")
+    ax.axvline(10, color=COLORS["navy"], linestyle="--", label="frozen sufficient margin")
+    ax.set_xscale("log")
+    ax.set_xlabel(r"$N\,/\,\{\sigma^2(d+T)k\kappa^4/\sigma_k^2\}$")
+    ax.set_ylabel("held-out success fraction (five seeds)")
+    ax.set_ylim(-0.05, 1.05)
+    ax.set_title("Held-out Claim 5 phase diagram across five factor families")
     ax.grid(alpha=0.22)
     ax.legend(frameon=False)
+    fig.colorbar(scatter, ax=ax, label="success fraction")
     fig.tight_layout()
     fig.savefig(OUT / "sample_threshold.png", dpi=180)
     plt.close(fig)
@@ -161,65 +186,30 @@ def transfer_decomposition(data: dict) -> None:
 
 
 def dimension_iterations(data: dict) -> None:
-    dimensions = np.asarray(data["configuration"]["d_values"], dtype=float)
-    medians = np.asarray(
-        [data["median_first_hit_by_d"][str(int(d))] for d in dimensions],
-        dtype=float,
-    )
-    control_hits = [
-        row["first_hit_iteration"] for row in data["negative_control"]["rows"]
-    ]
-    control = np.asarray(
-        [
-            value if value is not None else data["configuration"]["K1"] + 25
-            for value in control_hits
-        ],
-        dtype=float,
-    )
+    summaries = data["iteration_summaries"]
+    factors = ["d", "k", "T", "N"]
+    markers = ["o", "s", "^", "D"]
+    colors = [COLORS["blue"], COLORS["orange"], COLORS["green"], COLORS["navy"]]
     fig, ax = plt.subplots(figsize=(8.4, 4.6))
-    ax.semilogx(
-        dimensions,
-        medians,
-        "o-",
-        base=2,
-        linewidth=2.4,
-        markersize=7,
-        color=COLORS["blue"],
-        label="TPGD, theorem-normalized steps",
-    )
-    ax.semilogx(
-        dimensions,
-        control,
-        "s--",
-        base=2,
-        linewidth=2,
-        markersize=6,
-        color=COLORS["red"],
-        label=r"negative control, steps $\propto1/d$",
-    )
-    for d, value in zip(dimensions, control_hits):
-        if value is None:
-            ax.annotate(
-                "no hit",
-                (d, data["configuration"]["K1"] + 25),
-                xytext=(0, 7),
-                textcoords="offset points",
-                ha="center",
-                color=COLORS["red"],
-            )
-    ax.axhline(
-        data["configuration"]["K1"],
-        color=COLORS["gray"],
-        linestyle=":",
-        linewidth=1.5,
-        label="800-iteration horizon",
-    )
-    ax.set_xticks(dimensions, [str(int(d)) for d in dimensions])
-    ax.set_xlabel("input dimension d (log₂ scale)")
+    for factor, marker, color in zip(factors, markers, colors):
+        summary = summaries[factor]
+        x = np.arange(4)
+        medians = summary["median_first_hit_iterations"]
+        ax.plot(
+            x,
+            medians,
+            marker=marker,
+            linewidth=2,
+            markersize=6,
+            color=color,
+            label=f"{factor}: slope {summary['log_log_median_iteration_slope']:+.3f}",
+        )
+    ax.set_xticks(np.arange(4), ["level 1", "level 2", "level 3", "level 4"])
+    ax.set_xlabel("increasing factor value (see legend and report table)")
     ax.set_ylabel("first-hit iteration")
-    ax.set_title("TPGD iteration count stays stable across a 32× dimension sweep")
+    ax.set_title("TPGD first-hit counts stay stable across d, k, T, and N")
     ax.grid(alpha=0.22)
-    ax.legend(frameon=False, loc="upper left")
+    ax.legend(frameon=False, ncol=2)
     fig.tight_layout()
     fig.savefig(OUT / "dimension_iterations.png", dpi=180)
     plt.close(fig)
@@ -229,11 +219,13 @@ def main() -> None:
     _style()
     OUT.mkdir(parents=True, exist_ok=True)
     data = json.loads(RAW.read_text())
-    headline_slopes(data)
+    direct = json.loads(DIMENSION_RAW.read_text())
+    threshold = json.loads(THRESHOLD_RAW.read_text())
+    headline_slopes(direct)
     tpgd_trajectory(data)
-    sample_threshold(data)
+    sample_threshold(threshold)
     transfer_decomposition(data)
-    dimension_iterations(json.loads(DIMENSION_RAW.read_text()))
+    dimension_iterations(direct)
     print(f"rendered_figures=5 output={OUT}")
 
 
