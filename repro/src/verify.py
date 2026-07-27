@@ -46,6 +46,7 @@ from theorem_certificate import run_theorem_certificate
 from theorem_certificate_checker import check_theorem_certificate
 from dimension_iteration_sweep import run_dimension_iteration_sweep
 from direct_multidim_tpgd import run_direct_multidim_tpgd
+from claim5_threshold_phase_diagram import run_claim5_threshold_phase_diagram
 
 OUTPUT = Path(__file__).resolve().parents[2] / "outputs" / "verdict.json"
 REPORT: dict[str, object] = {
@@ -239,6 +240,9 @@ def main() -> int:
     direct_multidim = run_direct_multidim_tpgd()
     REPORT["current_research"]["direct_multidim_tpgd"] = direct_multidim
     results.append(bool(direct_multidim["diagnostics_passed"]))
+    claim5_threshold = run_claim5_threshold_phase_diagram()
+    REPORT["current_research"]["claim5_threshold_phase_diagram"] = claim5_threshold
+    results.append(bool(claim5_threshold["diagnostics_passed"]))
     REPORT["runtime_and_cpu"] = cpu_metadata(time.perf_counter() - started)
     REPORT["all_historical_checks_passed"] = all(results)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -296,6 +300,13 @@ def main() -> int:
     print(
         "direct_multidim_tpgd_status="
         f"{'PASS' if direct_multidim['diagnostics_passed'] else 'FAIL'}"
+    )
+    print("CLAIM5_THRESHOLD_PHASE_DIAGRAM_JSON_BEGIN")
+    print(json.dumps(claim5_threshold, indent=2, sort_keys=True))
+    print("CLAIM5_THRESHOLD_PHASE_DIAGRAM_JSON_END")
+    print(
+        "claim5_threshold_phase_diagram_status="
+        f"{'PASS' if claim5_threshold['diagnostics_passed'] else 'FAIL'}"
     )
     print(f"historical_baseline_status={'PASS' if all(results) else 'FAIL'}")
     return 0 if all(results) else 1
