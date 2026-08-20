@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+title: "Legacy/source workspace for Near-Optimal and Efficient First-Order Algorithm for Multi-Task Learning with Shared Linear Representation"
+type: software
+authors:
+  - family-names: Ding
+    given-names: Shihong
+  - family-names: Du
+    given-names: Fangyu
+  - family-names: Fang
+    given-names: Cong
+repository-code: "https://github.com/MachineLearning-Nerd/icml26-legacy-tpgd-multitask"
+url: "https://github.com/MachineLearning-Nerd/icml26-legacy-tpgd-multitask"
+abstract: "Legacy/source workspace preserving the implementation, evidence artifacts, and branch history for the associated ICML 2026 reproduction record."
+keywords:
+  - reproduction
+  - ICML 2026
+references:
+  - type: article
+    title: "Near-Optimal and Efficient First-Order Algorithm for Multi-Task Learning with Shared Linear Representation"
+    authors:
+      - family-names: Ding
+        given-names: Shihong
+      - family-names: Du
+        given-names: Fangyu
+      - family-names: Fang
+        given-names: Cong
+    identifiers:
+      - type: arxiv
+        value: "2605.00473"
+    url: "https://arxiv.org/abs/2605.00473"
+

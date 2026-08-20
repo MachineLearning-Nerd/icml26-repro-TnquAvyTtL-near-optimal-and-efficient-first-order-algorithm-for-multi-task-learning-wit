@@ -1,5 +1,30 @@
 # Claim-by-claim reproduction of TPGD for shared linear representations
 
+## Collection classification and audit boundary
+
+This repository is a **legacy/source workspace** for *Near-Optimal and Efficient First-Order Algorithm for Multi-Task Learning with Shared Linear Representation*
+(arXiv `2605.00473`, OpenReview `TnquAvyTtL`). It is preserved
+separately from the standardized canonical record at
+[`icml26-tpgd-multitask-representation`](https://github.com/MachineLearning-Nerd/icml26-tpgd-multitask-representation).
+
+The claim results and scores recorded below are historical results of this
+workspace. They are not new paper-level verifications performed while
+organizing the collection. The collection audit did not run the scientific
+implementation; the canonical record documents its own scoped status and
+limitations.
+
+### How the historical claim evidence is produced
+
+The claim table and experiment log below are the authoritative mapping from
+each paper claim to its producer, command, control, and evidence artifact. In
+this workspace, the claim-specific producers and independent checkers emit structured artifacts under `.openresearch/artifacts/` and `evidence/`, including claim contracts, methods, controls, rate rows, and `EVAL.md`.
+
+The former `orx/*` branches are historical workstreams, not additional final
+publication claims. Their purposes and tips are preserved in
+[`BRANCH_AUDIT.md`](BRANCH_AUDIT.md). Citation and author acknowledgment
+details are in [`CITATION.cff`](CITATION.cff) and
+[`AUTHOR_THANK_YOU.md`](AUTHOR_THANK_YOU.md).
+
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-TnquAvyTtL-near-optimal-and-efficient-first-order-algorithm-for-multi-task-learning-wit/blob/main/notebooks/tpgd_reproduction.py)
 
 Paper: *Near-Optimal and Efficient First-Order Algorithm for Multi-Task
